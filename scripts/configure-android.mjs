@@ -12,14 +12,14 @@ for (const permission of mediaPermissions) {
   if (!manifest.includes(declaration)) {
     const applicationStart = manifest.indexOf("<application");
     if (applicationStart < 0) throw new Error("Could not find application in AndroidManifest.xml");
-    manifest = manifest.slice(0, applicationStart) + "    " + declaration + "\\n    " + manifest.slice(applicationStart);
+    manifest = manifest.slice(0, applicationStart) + "    " + declaration + "\n    " + manifest.slice(applicationStart);
   }
 }
 for (const feature of ['android.hardware.camera', 'android.hardware.microphone']) {
   const declaration = `<uses-feature android:name="${feature}" android:required="false" />`;
   if (!manifest.includes(declaration)) {
     const applicationStart = manifest.indexOf("<application");
-    manifest = manifest.slice(0, applicationStart) + "    " + declaration + "\\n    " + manifest.slice(applicationStart);
+    manifest = manifest.slice(0, applicationStart) + "    " + declaration + "\n    " + manifest.slice(applicationStart);
   }
 }
 if (!manifest.includes('android:scheme="feather"')) {
