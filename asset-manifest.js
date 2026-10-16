@@ -1,0 +1,1 @@
+window.FEATHER_ASSETS = [];
