@@ -71,6 +71,16 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  const mediaAllowed = webContents => !!webContents && !webContents.isDestroyed() && webContents.getURL().startsWith("file://");
+  const { session } = require("electron");
+  session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+    if (permission === "media" && mediaAllowed(webContents)) return callback(true);
+    callback(false);
+  });
+  session.defaultSession.setPermissionCheckHandler((webContents, permission) => {
+    if (permission === "media" && mediaAllowed(webContents)) return true;
+    return false;
+  });
   createWindow();
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
