@@ -353,3 +353,50 @@
   #messenger-app .m-composer{padding-top:6px;padding-bottom:calc(6px + env(safe-area-inset-bottom))}
   #messenger-app .m-modal{max-height:calc(100dvh - 12px);padding:12px}
 }
+
+/* CONVERSATION REFINEMENT — Mosca x Liquid Glass */
+#messenger-app .m-main{background:radial-gradient(ellipse at 85% 0%,rgba(129,111,255,.105),transparent 38%),radial-gradient(ellipse at 0% 100%,rgba(54,213,210,.055),transparent 36%),var(--bg)}
+#messenger-app .m-topbar{position:relative;z-index:2;border-bottom:1px solid rgba(255,255,255,.075);background:linear-gradient(135deg,rgba(255,255,255,.085),rgba(255,255,255,.025));box-shadow:0 8px 30px rgba(0,0,0,.08);backdrop-filter:blur(24px) saturate(145%);-webkit-backdrop-filter:blur(24px) saturate(145%)}
+#messenger-app .m-topname{font-weight:750;letter-spacing:-.025em}
+#messenger-app .m-topactions .m-iconbtn,#messenger-app .m-back{border:1px solid rgba(255,255,255,.1);background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.035));box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 5px 16px rgba(0,0,0,.1);transition:transform .18s,border-color .18s,background .18s}
+#messenger-app .m-messages{position:relative;isolation:isolate;gap:12px;padding:24px clamp(14px,3vw,32px);background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.028) 1px,transparent 0);background-size:22px 22px}
+#messenger-app .m-date{position:sticky;top:8px;z-index:1;align-self:center;width:max-content;max-width:90%;padding:6px 12px;margin:8px auto 5px;border:1px solid rgba(255,255,255,.11);border-radius:999px;background:rgba(22,26,42,.72);font-size:11px;font-weight:650;box-shadow:0 5px 18px rgba(0,0,0,.1);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+#messenger-app .m-bubble-wrap{max-width:min(78%,680px);gap:4px;filter:drop-shadow(0 7px 14px rgba(0,0,0,.09))}
+#messenger-app .m-bubble{position:relative;overflow-wrap:anywhere;white-space:pre-wrap;border:1px solid rgba(255,255,255,.095);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.045));box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.05);backdrop-filter:blur(18px) saturate(130%);-webkit-backdrop-filter:blur(18px) saturate(130%);transition:border-color .2s,transform .2s,background .2s}
+#messenger-app .m-bubble-wrap:not(.mine) .m-bubble{border-top-left-radius:7px}
+#messenger-app .m-bubble-wrap.mine .m-bubble,#messenger-app .m-bubble.mine{border-color:rgba(159,145,255,.26);border-top-right-radius:7px;background:linear-gradient(145deg,rgba(133,111,255,.32),rgba(83,102,207,.2) 58%,rgba(65,190,202,.12));box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 8px 24px rgba(93,82,207,.12);color:var(--text)}
+#messenger-app .m-bubble-wrap:hover .m-bubble{border-color:rgba(255,255,255,.18)}
+#messenger-app .m-bubble-time{display:flex;align-items:center;justify-content:flex-end;gap:5px;margin-top:6px;font-size:10px;line-height:1.2;opacity:.85}
+#messenger-app .m-bubble.mine .m-bubble-time{color:rgba(242,241,255,.78)}
+#messenger-app .m-message-receipt{letter-spacing:-.13em;font-weight:800}
+#messenger-app .m-message-receipt.is-read{color:#73e3e0}
+#messenger-app .m-reaction-area{position:relative;margin-top:1px}
+#messenger-app .m-reaction-list{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+#messenger-app .m-reaction-chip,#messenger-app .m-reaction-add{min-height:28px;border:1px solid rgba(255,255,255,.11);border-radius:999px;background:rgba(255,255,255,.055);box-shadow:inset 0 1px 0 rgba(255,255,255,.055);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .16s,background .16s,border-color .16s}
+#messenger-app .m-reaction-chip{padding:4px 9px;gap:5px;font-size:12px}
+#messenger-app .m-reaction-chip span{font-size:10px;color:var(--muted)}
+#messenger-app .m-reaction-chip.is-mine{border-color:rgba(153,137,255,.48);background:rgba(132,111,255,.19)}
+#messenger-app .m-reaction-add{width:29px;min-width:29px;font-size:15px;color:var(--muted)}
+#messenger-app .m-reaction-picker{z-index:5;padding:7px;gap:3px;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(20,23,39,.9);box-shadow:0 15px 45px rgba(0,0,0,.28);backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%)}
+#messenger-app .m-reaction-picker button{width:35px;height:35px;border-radius:11px;transition:transform .15s,background .15s}
+#messenger-app .m-typing-indicator{align-self:flex-start;display:flex;align-items:center;gap:9px;padding:10px 14px;border:1px solid rgba(255,255,255,.09);border-radius:17px 17px 17px 6px;background:rgba(255,255,255,.055);color:var(--muted);font-size:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+#messenger-app .m-typing-dots{display:flex;align-items:center;gap:3px}
+#messenger-app .m-typing-dots i{width:5px;height:5px;border-radius:50%;background:#a89bff;animation:m-glass-typing 1.05s ease-in-out infinite}
+#messenger-app .m-typing-dots i:nth-child(2){animation-delay:.14s}#messenger-app .m-typing-dots i:nth-child(3){animation-delay:.28s}
+@keyframes m-glass-typing{0%,60%,100%{opacity:.38;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+#messenger-app .m-composer{position:relative;z-index:2;gap:9px;border-top:1px solid rgba(255,255,255,.075);background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.055));box-shadow:0 -12px 32px rgba(0,0,0,.07);backdrop-filter:blur(24px) saturate(145%);-webkit-backdrop-filter:blur(24px) saturate(145%)}
+#messenger-app .m-compose{border:1px solid rgba(255,255,255,.12);border-radius:17px;background:rgba(8,11,23,.24);box-shadow:inset 0 1px 4px rgba(0,0,0,.08),0 1px 0 rgba(255,255,255,.035);transition:border-color .2s,box-shadow .2s,background .2s}
+#messenger-app .m-compose:focus{outline:none;border-color:rgba(151,136,255,.55);background:rgba(15,17,33,.45);box-shadow:0 0 0 3px rgba(137,117,255,.11),inset 0 1px 4px rgba(0,0,0,.08)}
+#messenger-app .m-send{border:1px solid rgba(255,255,255,.18);background:linear-gradient(145deg,#9b8aff,#7067e8 58%,#55bdc9);box-shadow:0 7px 20px rgba(113,99,230,.23),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .18s,filter .18s,box-shadow .18s}
+#messenger-app .m-send:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 10px 26px rgba(113,99,230,.3),inset 0 1px 0 rgba(255,255,255,.3)}
+#messenger-app .m-send:active{transform:scale(.96)}
+#messenger-app .m-voice-record{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.055)}
+#messenger-app .m-voice-player{border:1px solid rgba(255,255,255,.1);border-radius:16px;background:rgba(9,13,28,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.055)}
+#messenger-app .m-voice-play{background:linear-gradient(145deg,#a092ff,#716be5);box-shadow:0 4px 12px rgba(112,102,229,.2)}
+#messenger-app .m-voice-wave i{border-radius:999px;background:linear-gradient(180deg,#a99aff,#5bcbd0)}
+#messenger-app .m-voice-progress{background:linear-gradient(90deg,#a194ff,#5bd0d0)}
+#messenger-app .m-empty{max-width:460px;margin:auto;padding:28px 20px;border:1px solid rgba(255,255,255,.085);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.02));box-shadow:inset 0 1px 0 rgba(255,255,255,.06);text-align:center;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+#messenger-app .m-empty h2{letter-spacing:-.035em}
+@media(max-width:760px){#messenger-app .m-messages{gap:10px;padding:18px 12px calc(22px + env(safe-area-inset-bottom))}#messenger-app .m-bubble-wrap{max-width:91%}#messenger-app .m-bubble{border-radius:18px;padding:11px 13px 9px}#messenger-app .m-bubble-wrap:not(.mine) .m-bubble{border-top-left-radius:7px}#messenger-app .m-bubble-wrap.mine .m-bubble{border-top-right-radius:7px}#messenger-app .m-composer{padding-top:10px}#messenger-app .m-reaction-picker button{width:38px;height:38px}}
+@media(max-width:380px){#messenger-app .m-bubble-wrap{max-width:95%}#messenger-app .m-bubble{padding:10px 11px 8px;font-size:13px}#messenger-app .m-reaction-chip{min-height:26px;padding:3px 7px}}
+@media(prefers-reduced-motion:reduce){#messenger-app .m-typing-dots i{animation:none!important}#messenger-app .m-topactions .m-iconbtn,#messenger-app .m-back,#messenger-app .m-bubble,#messenger-app .m-reaction-chip,#messenger-app .m-reaction-add,#messenger-app .m-send{transition:none!important}}
