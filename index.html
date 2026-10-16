@@ -354,7 +354,7 @@ async function handleAuthCallback(callbackUrl) {
   } catch (error) { status("Не удалось завершить вход по ссылке: " + errorText(error)); }
 }
 window.addEventListener("feather:auth-callback", event => handleAuthCallback(event.detail));
-App.addListener("appUrlOpen", ({ url }) => handleAuthCallback(url));
+if (window.Capacitor?.isNativePlatform?.()) App.addListener("appUrlOpen", ({ url }) => handleAuthCallback(url));
 
 
   supabase.auth.getSession().then(({data}) => { if (data.session?.user) showProfile(data.session.user); });
