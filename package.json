@@ -1,0 +1,50 @@
+{
+  "name": "feather-messenger",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Feather Messenger for Android and Windows",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "build:web": "node scripts/prepare-web.mjs",
+    "build:android": "npm run build:web && npx cap add android && npx cap sync android",
+    "build:windows": "electron-builder --win nsis portable",
+    "start:desktop": "electron ."
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.1",
+    "@capacitor/core": "8.5.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.1",
+    "electron": "44.8.0",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "com.feather.messenger",
+    "productName": "Feather",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!android/**/*",
+      "!www/**/*",
+      "!scripts/**/*",
+      "!.github/**/*",
+      "!.git/**/*",
+      "!README.md"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
