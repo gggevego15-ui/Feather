@@ -7,8 +7,8 @@
   "scripts": {
     "build:web": "node scripts/prepare-web.mjs",
     "build:android": "npm run build:web && npx cap add android && npx cap sync android",
-    "build:windows": "electron-builder --win nsis portable",
-    "start:desktop": "electron ."
+    "build:windows": "npm run build:web && electron-builder --win nsis portable",
+    "start:desktop": "npm run build:web && electron ."
   },
   "dependencies": {
     "@capacitor/android": "8.5.1",
@@ -28,7 +28,6 @@
     "files": [
       "**/*",
       "!android/**/*",
-      "!www/**/*",
       "!scripts/**/*",
       "!.github/**/*",
       "!.git/**/*",
