@@ -480,3 +480,74 @@
 #messenger-app .m-message-menu button{position:relative;z-index:1;border-radius:14px}
 #messenger-app .m-message-menu button:hover{background:linear-gradient(120deg,rgba(255,255,255,.19),rgba(255,255,255,.055));border-color:rgba(255,255,255,.18);box-shadow:inset 1px 1px 1px rgba(255,255,255,.19)}
 #messenger-app .m-message-menu button.danger:hover{background:linear-gradient(120deg,rgba(255,115,142,.17),rgba(255,255,255,.035));border-color:rgba(255,150,170,.24)}
+
+
+/* FEATHER GLOBAL LIQUID GLASS — water-clear surfaces across every messenger theme */
+#messenger-app{
+ --glass-edge:rgba(255,255,255,.24);
+ --glass-shine:rgba(255,255,255,.16);
+ background:
+  radial-gradient(ellipse at 12% 8%,color-mix(in srgb,var(--accent) 19%,transparent),transparent 43%),
+  radial-gradient(ellipse at 88% 88%,color-mix(in srgb,var(--accent2) 14%,transparent),transparent 42%),
+  var(--bg);
+}
+#messenger-app .m-layout{background:transparent;border-color:rgba(255,255,255,.13)}
+#messenger-app .m-sidebar,
+#messenger-app .m-topbar,
+#messenger-app .m-composer,
+#messenger-app .m-modal,
+#messenger-app .m-chatrow.active,
+#messenger-app .m-searchresults,
+#messenger-app .m-toast{
+ background:linear-gradient(135deg,rgba(255,255,255,.105),rgba(255,255,255,.025) 48%,rgba(255,255,255,.045))!important;
+ border-color:var(--glass-edge)!important;
+ box-shadow:inset 1px 1px 1px rgba(255,255,255,.18),inset -1px -1px 1px rgba(255,255,255,.035),0 12px 38px rgba(0,0,0,.075);
+ backdrop-filter:blur(12px) saturate(175%);-webkit-backdrop-filter:blur(12px) saturate(175%);
+}
+#messenger-app .m-sidebar{border-right:1px solid rgba(255,255,255,.15)}
+#messenger-app .m-topbar{border-bottom:1px solid rgba(255,255,255,.14)}
+#messenger-app .m-composer{border-top:1px solid rgba(255,255,255,.14)}
+#messenger-app .m-chatrow,
+#messenger-app .m-bubble,
+#messenger-app .m-input,
+#messenger-app .m-compose,
+#messenger-app .m-iconbtn,
+#messenger-app .m-quiet,
+#messenger-app .m-theme,
+#messenger-app .m-result,
+#messenger-app .m-reaction,
+#messenger-app .m-reaction-picker,
+#messenger-app .m-voice-player,
+#messenger-app .m-attach,
+#messenger-app .m-search{
+ background:linear-gradient(140deg,rgba(255,255,255,.09),rgba(255,255,255,.018) 55%,rgba(255,255,255,.04))!important;
+ border-color:rgba(255,255,255,.19)!important;
+ box-shadow:inset 1px 1px 1px rgba(255,255,255,.16),inset -1px -1px 1px rgba(255,255,255,.025);
+ backdrop-filter:blur(9px) saturate(165%);-webkit-backdrop-filter:blur(9px) saturate(165%);
+}
+#messenger-app .m-chatrow:hover,
+#messenger-app .m-result:hover,
+#messenger-app .m-theme:hover,
+#messenger-app .m-iconbtn:hover,
+#messenger-app .m-quiet:hover{
+ background:linear-gradient(135deg,rgba(255,255,255,.17),rgba(255,255,255,.045))!important;
+ border-color:rgba(255,255,255,.3)!important;
+}
+#messenger-app .m-bubble{border-radius:22px 22px 22px 8px;border:1px solid rgba(255,255,255,.2)}
+#messenger-app .m-bubble.mine{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 22%,transparent),color-mix(in srgb,var(--accent2) 12%,transparent))!important;border-color:color-mix(in srgb,var(--accent) 38%,rgba(255,255,255,.22))!important;box-shadow:inset 1px 1px 1px rgba(255,255,255,.23),inset -1px -1px 2px rgba(255,255,255,.035),0 7px 24px rgba(0,0,0,.055);border-radius:22px 22px 8px 22px}
+#messenger-app .m-input:focus,
+#messenger-app .m-compose:focus{border-color:color-mix(in srgb,var(--accent) 65%,white)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 15%,transparent),inset 1px 1px 1px rgba(255,255,255,.18)}
+#messenger-app .m-primary,
+#messenger-app .m-send{
+ background:linear-gradient(130deg,color-mix(in srgb,var(--accent) 82%,white),color-mix(in srgb,var(--accent2) 72%,white))!important;
+ border:1px solid rgba(255,255,255,.48)!important;
+ box-shadow:inset 1px 1px 1px rgba(255,255,255,.62),inset -1px -1px 2px rgba(30,40,80,.08),0 7px 24px color-mix(in srgb,var(--accent) 16%,transparent);
+}
+#messenger-app .m-avatar,
+#messenger-app .m-mark{box-shadow:inset 1px 1px 1px rgba(255,255,255,.42),inset -1px -1px 2px rgba(20,20,40,.1),0 5px 18px rgba(0,0,0,.09)}
+#messenger-app .m-modal-backdrop{background:rgba(5,8,20,.28);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+#messenger-app .m-date{background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:5px 11px;backdrop-filter:blur(8px)}
+#messenger-app .m-message-menu{backdrop-filter:blur(14px) saturate(190%);-webkit-backdrop-filter:blur(14px) saturate(190%)}
+@media(prefers-reduced-transparency:reduce){
+ #messenger-app .m-sidebar,#messenger-app .m-topbar,#messenger-app .m-composer,#messenger-app .m-modal,#messenger-app .m-chatrow,#messenger-app .m-bubble,#messenger-app .m-input,#messenger-app .m-compose,#messenger-app .m-iconbtn{backdrop-filter:none;-webkit-backdrop-filter:none}
+}
