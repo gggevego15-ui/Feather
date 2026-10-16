@@ -6,13 +6,14 @@
   "main": "desktop/main.cjs",
   "scripts": {
     "build:web": "node scripts/prepare-web.mjs",
-    "build:android": "npm run build:web && npx cap add android && npx cap sync android",
+    "build:android": "npm run build:web && npx cap add android && npx cap sync android && node scripts/configure-android.mjs",
     "build:windows": "npm run build:web && electron-builder --win nsis portable",
     "start:desktop": "npm run build:web && electron ."
   },
   "dependencies": {
     "@capacitor/android": "8.5.1",
-    "@capacitor/core": "8.5.1"
+    "@capacitor/core": "8.5.1",
+    "@capacitor/app": "8.0.1"
   },
   "devDependencies": {
     "@capacitor/cli": "8.5.1",
