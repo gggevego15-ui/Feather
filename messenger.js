@@ -1,5 +1,7 @@
 const $ = id => document.getElementById(id);
 let current, activeChat=null, channel=null, chatCache=[], theme="dark", searchTimer;
+const preferences = { enterToSend: localStorage.getItem("feather-enter-to-send") !== "false", compact: localStorage.getItem("feather-compact") === "true", animations: localStorage.getItem("feather-animations") !== "false" };
+function savePreference(key,value){preferences[key]=value;const keys={enterToSend:"enter-to-send",compact:"compact",animations:"animations"};localStorage.setItem("feather-"+keys[key],String(value));const root=$("messenger-app");if(root){root.classList.toggle("m-compact",preferences.compact);root.classList.toggle("m-no-animations",!preferences.animations);}}
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const initial = s => (String(s||"?").trim().charAt(0)||"?").toUpperCase();
 const time = s => new Date(s).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
@@ -11,7 +13,7 @@ function saveHiddenChats(value){localStorage.setItem("feather-hidden-chats-"+cur
 function playDeleteExplosion(row){if(!row)return;const fx=document.createElement("span");fx.className="m-delete-explosion";fx.setAttribute("aria-hidden","true");fx.innerHTML='<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b>✦</b>';row.appendChild(fx);row.classList.add("m-chat-deleting");setTimeout(()=>fx.remove(),760)}
 async function hideChat(person,row){const hidden=hiddenChats();hidden[person.id]=Date.now();saveHiddenChats(hidden);playDeleteExplosion(row);if(activeChat&&activeChat.id===person.id){activeChat=null;$("messenger-app").dataset.chatOpen="false";$("m-composer").classList.add("hidden");$("m-messages").innerHTML='<div class="m-empty"><div class="m-empty-icon">✦</div><h2>Чат скрыт</h2><p>Переписка скрыта только у тебя. Новое сообщение вернёт её в список.</p></div>';$("m-topbar").innerHTML='<div class="m-empty-icon" style="width:42px;height:42px;margin:0;border-radius:14px;font-size:20px">✦</div><div><div class="m-topname">Feather</div><div class="m-topstatus">Твои личные сообщения</div></div>';}setTimeout(()=>{loadChats();toast("Чат убран из списка. История собеседника не удалена.");},520)}
 export async function mountMessenger(supabase,user,profile){
- if(!supabase||!user)return;current={supabase,user,profile:profile||{}};const root=$("messenger-app");root.classList.remove("hidden");theme=localStorage.getItem("feather-theme")||"dark";if(theme==="aurora")theme="dark";if(theme==="ocean")theme="dark";if(theme==="paper")theme="light";if(!["light","dark","glass"].includes(theme))theme="dark";root.dataset.theme=theme;root.dataset.chatOpen="false";
+ if(!supabase||!user)return;current={supabase,user,profile:profile||{}};const root=$("messenger-app");root.classList.remove("hidden");theme=localStorage.getItem("feather-theme")||"dark";if(theme==="aurora")theme="dark";if(theme==="ocean")theme="dark";if(theme==="paper")theme="light";if(!["light","dark","glass"].includes(theme))theme="dark";root.dataset.theme=theme;root.dataset.chatOpen="false";root.classList.toggle("m-compact",preferences.compact);root.classList.toggle("m-no-animations",!preferences.animations);
  root.innerHTML=[
  '<div class="m-layout"><aside class="m-sidebar">',
  '<div class="m-brand"><div class="m-logo"><span class="m-mark">✦</span><span>Feather</span></div><button class="m-iconbtn" id="m-settings" aria-label="Настройки">⚙</button></div>',
@@ -24,7 +26,7 @@ export async function mountMessenger(supabase,user,profile){
  ].join("");
  $("m-search").addEventListener("input",e=>{clearTimeout(searchTimer);const q=e.target.value.trim().replace(/^@/,"").toLowerCase();if(q.length<2){$("m-searchresults").classList.add("hidden");return;}searchTimer=setTimeout(()=>searchPeople(q),250);});
  $("m-settings").addEventListener("click",()=>showSettings(false));$("m-profile").addEventListener("click",()=>showSettings(true));$("m-composer").addEventListener("submit",sendMessage);
- $("m-compose").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("m-composer").requestSubmit();}});
+ $("m-compose").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&preferences.enterToSend){e.preventDefault();$("m-composer").requestSubmit();}});
  await loadChats();if(channel)await supabase.removeChannel(channel);
  channel=supabase.channel("feather-messages-"+user.id).on("postgres_changes",{event:"INSERT",schema:"public",table:"messages"},p=>{const m=p.new;if(m.sender_id!==user.id&&m.receiver_id!==user.id)return;loadChats();if(activeChat&&(m.sender_id===activeChat.id||m.receiver_id===activeChat.id))loadMessages(activeChat);}).subscribe();applyAssets();
 }
