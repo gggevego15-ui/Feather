@@ -400,3 +400,46 @@
 @media(max-width:760px){#messenger-app .m-messages{gap:10px;padding:18px 12px calc(22px + env(safe-area-inset-bottom))}#messenger-app .m-bubble-wrap{max-width:91%}#messenger-app .m-bubble{border-radius:18px;padding:11px 13px 9px}#messenger-app .m-bubble-wrap:not(.mine) .m-bubble{border-top-left-radius:7px}#messenger-app .m-bubble-wrap.mine .m-bubble{border-top-right-radius:7px}#messenger-app .m-composer{padding-top:10px}#messenger-app .m-reaction-picker button{width:38px;height:38px}}
 @media(max-width:380px){#messenger-app .m-bubble-wrap{max-width:95%}#messenger-app .m-bubble{padding:10px 11px 8px;font-size:13px}#messenger-app .m-reaction-chip{min-height:26px;padding:3px 7px}}
 @media(prefers-reduced-motion:reduce){#messenger-app .m-typing-dots i{animation:none!important}#messenger-app .m-topactions .m-iconbtn,#messenger-app .m-back,#messenger-app .m-bubble,#messenger-app .m-reaction-chip,#messenger-app .m-reaction-add,#messenger-app .m-send{transition:none!important}}
+
+
+/* MOTION PASS — gentle message entrances and tactile reactions */
+@keyframes feather-message-in{
+  from{opacity:0;transform:translate3d(0,10px,0) scale(.985);filter:blur(3px)}
+  to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}
+}
+@keyframes feather-reaction-in{
+  0%{opacity:0;transform:translateY(5px) scale(.72)}
+  70%{opacity:1;transform:translateY(-1px) scale(1.045)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes feather-picker-in{
+  from{opacity:0;transform:translateY(7px) scale(.94)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes feather-send-pulse{
+  0%{box-shadow:0 0 0 0 rgba(147,130,255,.32)}
+  100%{box-shadow:0 0 0 9px rgba(147,130,255,0)}
+}
+#messenger-app .m-bubble-wrap{animation:feather-message-in .34s cubic-bezier(.2,.75,.25,1) both;animation-delay:calc(min(var(--message-index,0),8)*22ms)}
+#messenger-app .m-bubble-wrap .m-bubble{transform-origin:var(--bubble-origin,50% 100%)}
+#messenger-app .m-bubble-wrap.mine .m-bubble{--bubble-origin:100% 100%}
+#messenger-app .m-bubble-wrap:not(.mine) .m-bubble{--bubble-origin:0 100%}
+#messenger-app .m-bubble-wrap:hover .m-bubble{transform:translateY(-1px)}
+#messenger-app .m-reaction-list .m-reaction-chip{animation:feather-reaction-in .28s cubic-bezier(.2,.8,.25,1) both}
+#messenger-app .m-reaction-list .m-reaction-chip:nth-child(2){animation-delay:25ms}
+#messenger-app .m-reaction-list .m-reaction-chip:nth-child(3){animation-delay:50ms}
+#messenger-app .m-reaction-list .m-reaction-chip:nth-child(4){animation-delay:75ms}
+#messenger-app .m-reaction-list .m-reaction-chip:nth-child(5){animation-delay:100ms}
+#messenger-app .m-reaction-chip:hover,#messenger-app .m-reaction-add:hover{transform:translateY(-2px) scale(1.045);border-color:rgba(169,153,255,.55);box-shadow:0 5px 16px rgba(115,99,220,.14),inset 0 1px 0 rgba(255,255,255,.1)}
+#messenger-app .m-reaction-chip:active,#messenger-app .m-reaction-add:active{transform:scale(.92);transition-duration:80ms}
+#messenger-app .m-reaction-chip.is-mine{animation:feather-reaction-in .3s cubic-bezier(.2,.8,.25,1) both,feather-send-pulse .55s ease-out}
+#messenger-app .m-reaction-picker:not(.hidden){transform-origin:bottom left;animation:feather-picker-in .18s cubic-bezier(.2,.75,.25,1) both}
+#messenger-app .m-reaction-picker button{transition:transform .16s cubic-bezier(.2,.8,.25,1),background .16s,filter .16s}
+#messenger-app .m-reaction-picker button:hover{transform:translateY(-2px) scale(1.16);filter:drop-shadow(0 3px 6px rgba(165,147,255,.24))}
+#messenger-app .m-reaction-picker button:active{transform:scale(.88)}
+#messenger-app .m-send:active{animation:feather-send-pulse .45s ease-out}
+#messenger-app .m-bubble:focus-within{border-color:rgba(169,153,255,.4)}
+@media(prefers-reduced-motion:reduce){
+ #messenger-app .m-bubble-wrap,#messenger-app .m-reaction-list .m-reaction-chip,#messenger-app .m-reaction-chip.is-mine,#messenger-app .m-reaction-picker:not(.hidden){animation:none!important}
+ #messenger-app .m-bubble-wrap:hover .m-bubble,#messenger-app .m-reaction-chip:hover,#messenger-app .m-reaction-add:hover,#messenger-app .m-reaction-picker button:hover{transform:none!important}
+}
