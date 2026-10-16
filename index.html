@@ -73,6 +73,7 @@ const supabase = configured ? createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KE
   auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
 }) : null;
 const $ = id => document.getElementById(id);
+const authRedirectUrl = () => window.location.hostname.endsWith("github.io") ? window.location.origin + window.location.pathname : "https://gggevego15-ui.github.io/Feather/";
 let mode = "login";
 let currentUser = null;
 const usernamePattern = /^[a-z0-9_]{3,24}$/;
@@ -136,6 +137,7 @@ function errorText(error) {
   const msg = String(error?.message || "");
   if (/invalid login credentials/i.test(msg)) return "Неверная почта или пароль.";
   if (/user already registered/i.test(msg)) return "Эта почта уже зарегистрирована. Попробуй войти.";
+  if (/database error saving new user|duplicate key|profiles_username_lower_unique/i.test(msg)) return "Этот @username или адрес уже занят. Попробуй другой username или войди в существующий аккаунт.";
   if (/password should be at least/i.test(msg)) return "Пароль слишком короткий.";
   if (/email not confirmed/i.test(msg)) return "Подтверди почту по ссылке из письма, затем войди.";
   if (/provider is not enabled/i.test(msg)) return "Этот способ входа ещё не включён в настройках Supabase.";
@@ -179,7 +181,7 @@ $("email-form").addEventListener("submit", async event => {
         email, password,
         options: {
           data: { display_name: displayName || "Пользователь", username },
-          emailRedirectTo: window.location.origin + window.location.pathname
+          emailRedirectTo: authRedirectUrl()
         }
       });
       if (error) throw error;
@@ -198,7 +200,7 @@ $("google-button").addEventListener("click", async () => {
   try {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: window.location.origin + window.location.pathname }
+      options: { redirectTo: authRedirectUrl() }
     });
     if (error) throw error;
   } catch (error) { status(errorText(error)); }
@@ -209,7 +211,7 @@ $("forgot-password").addEventListener("click", async () => {
   if (!email) { status("Сначала введи почту в поле выше."); $("email").focus(); return; }
   try {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + window.location.pathname
+      redirectTo: authRedirectUrl()
     });
     if (error) throw error;
     status("Если для этого адреса есть аккаунт, инструкция для сброса пароля отправлена на почту.", true);
