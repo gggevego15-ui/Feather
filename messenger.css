@@ -658,3 +658,52 @@
 @keyframes m-success-particle{0%{opacity:0;transform:rotate(var(--angle)) translateY(0) scale(.3)}18%{opacity:1}100%{opacity:0;transform:rotate(var(--angle)) translateY(calc(-1 * var(--distance))) scale(1)}}
 @media(prefers-reduced-motion:reduce){#messenger-app *,#messenger-app *:before,#messenger-app *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
 @media(max-width:760px){#messenger-app .m-community-list{max-height:112px}#messenger-app .m-modal-backdrop{padding:12px}}
+
+
+/* Feather WebRTC calling: glass call stage, live video tiles and tactile controls */
+#m-call-host:empty{display:none}
+#m-call-host{position:fixed;inset:0;z-index:1000;font-family:inherit;color:var(--text,#f7f8ff)}
+#m-call-host .m-call-backdrop{position:absolute;inset:0;display:grid;place-items:center;padding:20px;background:rgba(5,8,18,.64);backdrop-filter:blur(18px) saturate(135%);-webkit-backdrop-filter:blur(18px) saturate(135%);animation:m-call-backdrop .28s ease-out both}
+#m-call-host .m-call-panel{position:relative;isolation:isolate;overflow:hidden;width:min(100%,560px);min-height:440px;padding:30px 28px 22px;border:1px solid rgba(255,255,255,.27);border-radius:32px;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.055) 48%,rgba(165,139,255,.075));box-shadow:inset 1px 1px 1px rgba(255,255,255,.28),inset -1px -1px 1px rgba(255,255,255,.04),0 34px 110px rgba(0,0,0,.4);backdrop-filter:blur(34px) saturate(175%);-webkit-backdrop-filter:blur(34px) saturate(175%);display:flex;flex-direction:column;align-items:center;animation:m-call-panel-in .48s cubic-bezier(.16,1,.3,1) both}
+#m-call-host .m-call-panel:before{content:"";position:absolute;z-index:-1;inset:-40%;background:radial-gradient(circle at 30% 20%,color-mix(in srgb,var(--accent,#a5b4fc) 30%,transparent),transparent 32%),radial-gradient(circle at 75% 75%,color-mix(in srgb,var(--accent2,#8ce6d2) 22%,transparent),transparent 36%);filter:blur(12px);animation:m-call-aurora 12s ease-in-out infinite alternate}
+#m-call-host .m-call-panel.no-motion,#m-call-host .m-call-panel.no-motion:before{animation:none!important}
+#m-call-host .m-call-orb{position:relative;display:grid;place-items:center;width:78px;height:78px;margin:0 auto 12px;border-radius:28px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent,#a5b4fc) 85%,white),color-mix(in srgb,var(--accent2,#8ce6d2) 85%,white));color:#111727;box-shadow:0 12px 38px color-mix(in srgb,var(--accent,#a5b4fc) 28%,transparent),inset 1px 1px 1px rgba(255,255,255,.8);font-size:31px;animation:m-call-orb 3s ease-in-out infinite}
+#m-call-host .m-call-orb i{position:absolute;inset:-7px;border:1px solid color-mix(in srgb,var(--accent,#a5b4fc) 40%,transparent);border-radius:32px;animation:m-call-ring 2.8s ease-out infinite}
+#m-call-host .m-call-orb i:nth-child(2){animation-delay:.65s}
+#m-call-host .m-call-orb i:nth-child(3){animation-delay:1.3s}
+#m-call-host .m-call-heading{text-align:center;max-width:100%;margin-bottom:18px}
+#m-call-host .m-call-person{font-size:22px;font-weight:800;letter-spacing:-.5px;overflow-wrap:anywhere}
+#m-call-host .m-call-status{font-size:13px;color:var(--muted,#b4bbce);margin-top:5px;min-height:18px}
+#m-call-host .m-call-videos{position:relative;width:100%;height:0;flex:1;min-height:170px;display:grid;place-items:center}
+#m-call-host .m-call-remote-wrap{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;border-radius:23px;border:1px solid rgba(255,255,255,.18);background:rgba(8,11,24,.42);box-shadow:inset 0 1px rgba(255,255,255,.1)}
+#m-call-host .m-call-remote-wrap video{position:absolute;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);background:transparent}
+#m-call-host .m-call-remote-placeholder{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.72);font-size:12px}
+#m-call-host .m-call-remote-placeholder span{display:grid;place-items:center;width:54px;height:54px;border-radius:19px;background:rgba(255,255,255,.1);font-size:25px;animation:m-call-orb 3s ease-in-out infinite}
+#m-call-host .m-call-remote-wrap:has(video[src]) .m-call-remote-placeholder{display:none}
+#m-call-host #m-call-local-video{position:absolute;z-index:3;right:12px;bottom:12px;width:112px;height:82px;object-fit:cover;border:1px solid rgba(255,255,255,.42);border-radius:16px;background:#111522;box-shadow:0 7px 24px rgba(0,0,0,.35);transform:scaleX(-1)}
+#m-call-host #m-call-local-video.hidden{display:none}
+#m-call-host #m-call-remote-audio{display:none}
+#m-call-host .m-call-panel.is-audio .m-call-videos{min-height:90px;flex:0 0 90px}
+#m-call-host .m-call-panel.is-audio .m-call-remote-wrap{inset:auto;width:100%;height:88px;background:rgba(255,255,255,.045)}
+#m-call-host .m-call-panel.is-audio .m-call-remote-wrap video,#m-call-host .m-call-panel.is-audio #m-call-local-video{display:none}
+#m-call-host .m-call-panel.is-audio .m-call-remote-placeholder{flex-direction:row}
+#m-call-host .m-call-panel.is-audio .m-call-remote-placeholder span{width:44px;height:44px;font-size:20px}
+#m-call-host .m-call-controls{display:flex;align-items:center;justify-content:center;gap:15px;margin:22px 0 12px}
+#m-call-host .m-call-control{display:grid;place-items:center;width:54px;height:54px;border-radius:19px;border:1px solid rgba(255,255,255,.24);background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.055));color:#fff;font-size:20px;box-shadow:inset 1px 1px 1px rgba(255,255,255,.2),0 8px 22px rgba(0,0,0,.12);transition:transform .25s cubic-bezier(.2,1.5,.4,1),background .2s,box-shadow .2s}
+#m-call-host .m-call-control:hover{transform:translateY(-3px) scale(1.06);box-shadow:inset 1px 1px 1px rgba(255,255,255,.28),0 12px 30px rgba(0,0,0,.22)}
+#m-call-host .m-call-control:active{transform:scale(.93)}
+#m-call-host .m-call-control.is-off{background:rgba(255,255,255,.08);opacity:.7}
+#m-call-host .m-call-control.m-call-decline{background:linear-gradient(135deg,#ff617d,#e63258);border-color:rgba(255,255,255,.35);transform:rotate(135deg);box-shadow:0 9px 26px rgba(238,48,91,.25)}
+#m-call-host .m-call-control.m-call-decline:hover{transform:rotate(135deg) translateY(-3px) scale(1.06)}
+#m-call-host .m-call-control.m-call-accept{background:linear-gradient(135deg,#35d6a1,#16a978);border-color:rgba(255,255,255,.35);box-shadow:0 9px 26px rgba(22,185,125,.25)}
+#m-call-host .m-call-encryption{font-size:10px;letter-spacing:.3px;color:var(--muted,#b4bbce);opacity:.8}
+#m-call-host .m-call-panel.is-video .m-call-heading{margin-bottom:14px}
+#m-call-host .m-call-panel.is-video .m-call-videos{min-height:220px}
+#m-call-host .m-call-panel.is-video .m-call-remote-wrap:has(video[src]) .m-call-remote-placeholder{display:none}
+@keyframes m-call-backdrop{from{opacity:0;backdrop-filter:blur(0)}to{opacity:1;backdrop-filter:blur(18px)}}
+@keyframes m-call-panel-in{0%{opacity:0;transform:translateY(20px) scale(.93);filter:blur(7px)}70%{opacity:1;transform:translateY(-2px) scale(1.008);filter:blur(0)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes m-call-aurora{0%{transform:translate(-4%,0) rotate(0) scale(.9)}100%{transform:translate(5%,-4%) rotate(12deg) scale(1.08)}}
+@keyframes m-call-orb{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.035)}}
+@keyframes m-call-ring{0%{transform:scale(.82);opacity:.7}100%{transform:scale(1.55);opacity:0}}
+@media(max-width:600px){#m-call-host .m-call-backdrop{padding:12px}#m-call-host .m-call-panel{width:100%;min-height:400px;padding:25px 18px 18px;border-radius:27px}#m-call-host .m-call-panel.is-video .m-call-videos{min-height:220px}#m-call-host #m-call-local-video{width:88px;height:68px;right:8px;bottom:8px;border-radius:13px}#m-call-host .m-call-controls{gap:12px;margin-top:18px}}
+@media(prefers-reduced-motion:reduce){#m-call-host *,#m-call-host *:before,#m-call-host *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
