@@ -19,8 +19,10 @@ Artifacts are kept for 14 days. These are testing builds; the Android APK is a d
 - **Android:** Capacitor 8; GitHub Actions generates the Android project and builds `app-debug.apk`.
 - **Windows:** Electron 44; GitHub Actions creates an installer and a portable `.exe`.
 - **Backend:** Supabase Auth + Postgres.
-- **Profiles:** unique case-insensitive `@username`, display name, and profile editing.
-- **Buttons and animations:** the build script scans image files in the repository and generates an asset manifest for the app. GIF/APNG assets can remain animated when used as button backgrounds.
+- **Profiles:** unique case-insensitive `@username`, display name, profile editing, and username search.
+- **Private chats:** one-to-one messages stored in Supabase, protected by row-level security, with live updates through Supabase Realtime.
+- **Themes:** Aurora, Ocean, and Paper; the selection is saved on the device.
+- **Buttons and animations:** the build script scans image assets in the repository and generates an asset manifest. Matching button/GIF/APNG assets are applied when available; the chat UI also includes hover, pop-in, and send-button animations.
 
 ## Required Supabase redirect setting
 
@@ -41,4 +43,4 @@ This is a one-time service setting; no code editing is required. The client uses
 
 ## Current scope
 
-The app currently includes email/password registration and login, editable profiles, and app build workflows. Private chats, user search UI, realtime messaging, and signed release builds are later milestones.
+The app includes email/password registration and login, editable profiles, search by `@username`, one-to-one chats, message history, realtime incoming messages, three themes, and Android/Windows build workflows. The Android APK produced by CI is a debug APK; signed release builds and app-store publishing remain separate release tasks.
