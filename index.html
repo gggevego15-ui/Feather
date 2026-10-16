@@ -63,6 +63,7 @@ label{display:block;font-size:12px;color:#aeb8ca;margin:0 0 8px 2px}.field{width
   </section>
 </section>
 </main>
+<script src="./asset-manifest.js"></script>
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -77,6 +78,30 @@ const authRedirectUrl = () => window.location.hostname.endsWith("github.io") ? w
 let mode = "login";
 let currentUser = null;
 const usernamePattern = /^[a-z0-9_]{3,24}$/;
+function attachButtonAssets() {
+  const all = Array.isArray(window.FEATHER_ASSETS) ? window.FEATHER_ASSETS : [];
+  const candidates = all.filter(asset => /(^|\\/)(buttons?|animations?|btn)(\\/|$)/i.test(asset.path) || /button|btn|кноп|animation|anim/i.test(asset.name));
+  if (!candidates.length) return;
+  const choose = pattern => candidates.find(asset => pattern.test(asset.path + " " + asset.name));
+  const primary = choose(/login|register|primary|submit|confirm|save|main|button|btn|кноп/i) || candidates[0];
+  const secondary = choose(/secondary|google|phone|outline|alt|ghost/i) || candidates[1];
+  const tab = choose(/tab|toggle|switch/i) || candidates[2];
+  const apply = (selector, asset) => {
+    if (!asset) return;
+    document.querySelectorAll(selector).forEach(button => {
+      button.style.backgroundImage = 'url("' + asset.path.replaceAll('"', '%22') + '")';
+      button.style.backgroundSize = "100% 100%";
+      button.style.backgroundPosition = "center";
+      button.style.backgroundRepeat = "no-repeat";
+      button.style.borderColor = "transparent";
+      button.style.backgroundColor = "transparent";
+    });
+  };
+  apply(".primary", primary);
+  apply(".google, .secondary", secondary || primary);
+  apply(".tab", tab);
+}
+attachButtonAssets();
 function showAuth() {
   $("profile-panel").classList.add("hidden");
   $("heading").classList.remove("hidden");
