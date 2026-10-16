@@ -34,6 +34,6 @@ if (!manifest.includes('android:scheme="feather"')) {
             </intent-filter>
 `;
   manifest = manifest.slice(0, activityClose) + filter + manifest.slice(activityClose);
-  await writeFile(manifestPath, manifest, "utf8");
 }
-console.log("Configured feather://auth Android deep links");
+await writeFile(manifestPath, manifest, "utf8");
+console.log("Configured Android media permissions and feather://auth deep links");
