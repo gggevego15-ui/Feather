@@ -10,7 +10,7 @@ await mkdir(output, { recursive: true });
 async function copyTree(source, destination, topLevel = false) {
   const entries = await readdir(source, { withFileTypes: true });
   for (const entry of entries) {
-    if (topLevel && excluded.has(entry.name)) continue;
+    if (topLevel && (excluded.has(entry.name) || entry.name === "package.json")) continue;
     const from = path.join(source, entry.name);
     const to = path.join(destination, entry.name);
     if (entry.isDirectory()) {
