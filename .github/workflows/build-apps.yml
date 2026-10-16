@@ -4,20 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - "index.html"
-      - "manifest.webmanifest"
-      - "sw.js"
-      - "icon.svg"
-      - "desktop/**"
-      - "scripts/**"
-      - "package.json"
-      - "capacitor.config.json"
-      - ".github/workflows/build-apps.yml"
-      - "assets/**"
-      - "images/**"
-      - "animations/**"
-      - "buttons/**"
 
 permissions:
   contents: read
