@@ -194,15 +194,18 @@ $("email-form").addEventListener("submit", async event => {
   event.preventDefault();
   if (!ready()) return;
   const button = $("email-submit");
-  button.disabled = true;
-  button.textContent = "Подожди…";
   const email = $("email").value.trim();
   const password = $("password").value;
   const displayName = $("display-name").value.trim();
   const username = $("username").value.trim().toLowerCase();
   if (mode === "register" && !usernamePattern.test(username)) { status("Username: 3–24 символа, только английские буквы, цифры и _."); return; }
+  button.disabled = true;
+  button.textContent = "Подожди…";
   try {
     if (mode === "register") {
+      const { data: existingProfile, error: lookupError } = await supabase.from("profiles").select("id").eq("username", username).maybeSingle();
+      if (lookupError) throw lookupError;
+      if (existingProfile) { status("Этот @username уже занят. Выбери другой."); return; }
       const { data, error } = await supabase.auth.signUp({
         email, password,
         options: {
