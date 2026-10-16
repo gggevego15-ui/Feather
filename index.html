@@ -81,7 +81,7 @@ let currentUser = null;
 const usernamePattern = /^[a-z0-9_]{3,24}$/;
 function attachButtonAssets() {
   const all = Array.isArray(window.FEATHER_ASSETS) ? window.FEATHER_ASSETS : [];
-  const candidates = all.filter(asset => /(^|\\/)(buttons?|animations?|btn)(\\/|$)/i.test(asset.path) || /button|btn|кноп|animation|anim/i.test(asset.name));
+  const candidates = all.filter(asset => /(buttons?|animations?|btn)/i.test(asset.path) || /button|btn|кноп|animation|anim/i.test(asset.name));
   if (!candidates.length) return;
   const choose = pattern => candidates.find(asset => pattern.test(asset.path + " " + asset.name));
   const primary = choose(/login|register|primary|submit|confirm|save|main|button|btn|кноп/i) || candidates[0];
