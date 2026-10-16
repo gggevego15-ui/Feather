@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "Feather Messenger",
+  "short_name": "Feather",
+  "description": "Лёгкий мессенджер для твоих разговоров",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b0e14",
+  "theme_color": "#10131b",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
