@@ -37,4 +37,6 @@ async function scanImages(dir, relative = "") {
 }
 await scanImages(output);
 await writeFile(path.join(output, "asset-manifest.js"), "window.FEATHER_ASSETS = " + JSON.stringify(assets) + ";\n", "utf8");
+const buttonAssets = assets.filter(asset => /(buttons?|btn|кноп|animation|anim)/i.test(asset.path + " " + asset.name));
 console.log(`Prepared Feather app assets in ./www (${assets.length} images/animations found)`);
+console.log(`Button/animation candidates (${buttonAssets.length}): ${buttonAssets.map(asset => asset.path).join(", ") || "none detected by filename"}`);
