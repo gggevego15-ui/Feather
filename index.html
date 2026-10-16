@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10131b"><title>Feather — вход</title>
+<meta name="theme-color" content="#10131b"><meta name="description" content="Feather — лёгкий мессенджер для твоих разговоров."><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml"><title>Feather — мессенджер</title>
 <style>
 :root{color-scheme:dark;--bg:#0b0e14;--panel:#121722;--line:#263044;--muted:#8994a8;--text:#f4f7ff;--accent:#ff8b72;--accent2:#9ee86f}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 20% 15%,#472b43 0,transparent 42%),radial-gradient(ellipse at 85% 80%,#29421f 0,transparent 38%),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);display:grid;place-items:center;padding:24px}
@@ -51,8 +51,8 @@ label{display:block;font-size:12px;color:#aeb8ca;margin:0 0 8px 2px}.field{width
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const SUPABASE_URL = "PASTE_SUPABASE_PROJECT_URL";
-const SUPABASE_PUBLISHABLE_KEY = "PASTE_SUPABASE_PUBLISHABLE_KEY";
+const SUPABASE_URL = "https://hdueaohjhlqhxlpehnqt.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_KRaLRbFNpALf2rn6hWXTUw_mWaZ0N0w";
 const configured = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(SUPABASE_URL) && !SUPABASE_PUBLISHABLE_KEY.includes("PASTE_");
 const supabase = configured ? createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
@@ -173,6 +173,25 @@ $("code-form").addEventListener("submit", async event => {
     $("code-form").classList.add("hidden");
   } catch (error) { status(errorText(error)); }
 });
+
+$("recovery-form").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!ready()) return;
+  const password = $("new-password").value;
+  try {
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) throw error;
+    status("Пароль изменён. Теперь можешь войти с новым паролем.", true);
+    $("recovery-form").classList.add("hidden");
+    $("email-form").classList.remove("hidden");
+    $("google-button").classList.remove("hidden");
+    $("phone-form").classList.remove("hidden");
+    $("forgot-password").classList.remove("hidden");
+    setMode("login");
+    await supabase.auth.signOut();
+  } catch (error) { status(errorText(error)); }
+});
+
 if (!configured) {
   status("Интерфейс готов. Для реальной авторизации подключи Supabase — см. README.");
 } else {
@@ -193,6 +212,11 @@ if (!configured) {
       status("Вход выполнен: " + (user.user_metadata?.display_name || user.email || user.phone || "Feather"), true);
     }
   });
+}
+</script>
+<script>
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
 }
 </script>
 </body>
