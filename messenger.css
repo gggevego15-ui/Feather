@@ -470,3 +470,13 @@
  #messenger-app .m-message-menu-trigger,#messenger-app .m-message-menu button{transition:none!important}
  #messenger-app .m-message-menu{animation:none!important}
 }
+
+
+/* Feather Liquid Glass — transparent water-drop refraction */
+#messenger-app .m-message-menu-trigger{background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.035) 42%,rgba(158,174,255,.075));border:1px solid rgba(255,255,255,.36);box-shadow:inset 1px 1px 1px rgba(255,255,255,.42),inset -1px -1px 2px rgba(170,190,255,.13),0 4px 18px rgba(80,90,150,.09);backdrop-filter:blur(8px) saturate(180%);-webkit-backdrop-filter:blur(8px) saturate(180%)}
+#messenger-app .m-message-menu-trigger:hover{background:linear-gradient(145deg,rgba(255,255,255,.34),rgba(255,255,255,.07) 48%,rgba(167,153,255,.15));border-color:rgba(255,255,255,.58);box-shadow:inset 1px 1px 1px rgba(255,255,255,.6),inset -1px -1px 3px rgba(171,187,255,.2),0 5px 20px rgba(104,113,180,.14)}
+#messenger-app .m-message-menu{background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.035) 42%,rgba(153,169,255,.075));border:1px solid rgba(255,255,255,.32);border-radius:20px 24px 19px 23px;box-shadow:inset 1px 1px 1px rgba(255,255,255,.36),inset -1px -1px 2px rgba(177,192,255,.12),0 12px 34px rgba(35,43,80,.12);backdrop-filter:blur(10px) saturate(190%);-webkit-backdrop-filter:blur(10px) saturate(190%);overflow:hidden}
+#messenger-app .m-message-menu:before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(ellipse at 12% 0%,rgba(255,255,255,.24),transparent 43%),linear-gradient(125deg,rgba(255,255,255,.09),transparent 38%,rgba(177,190,255,.06));opacity:.8}
+#messenger-app .m-message-menu button{position:relative;z-index:1;border-radius:14px}
+#messenger-app .m-message-menu button:hover{background:linear-gradient(120deg,rgba(255,255,255,.19),rgba(255,255,255,.055));border-color:rgba(255,255,255,.18);box-shadow:inset 1px 1px 1px rgba(255,255,255,.19)}
+#messenger-app .m-message-menu button.danger:hover{background:linear-gradient(120deg,rgba(255,115,142,.17),rgba(255,255,255,.035));border-color:rgba(255,150,170,.24)}
