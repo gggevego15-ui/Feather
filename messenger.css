@@ -594,3 +594,67 @@
  #messenger-app .m-space-invite-row{align-items:stretch;flex-wrap:wrap}
  #messenger-app .m-space-invite-row .m-primary{width:100%}
 }
+
+
+/* Feather motion pack: springy modals, liquid shimmer, staggered lists, and celebration bursts */
+#messenger-app .m-brand{position:relative;isolation:isolate}
+#messenger-app .m-logo{animation:m-brand-bob 5.8s ease-in-out infinite;transform-origin:left center}
+#messenger-app .m-mark{animation:m-mark-breathe 4.2s ease-in-out infinite;filter:drop-shadow(0 0 0 color-mix(in srgb,var(--accent) 0%,transparent))}
+#messenger-app .m-sidebar:before{content:"";position:absolute;pointer-events:none;z-index:0;top:-120px;left:-90px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 16%,transparent),transparent 68%);filter:blur(8px);animation:m-ambient-drift 13s ease-in-out infinite alternate}
+#messenger-app .m-sidebar>*{position:relative;z-index:1}
+#messenger-app .m-community-section{animation:m-section-rise .55s cubic-bezier(.16,1,.3,1) both}
+#messenger-app .m-community-section:nth-of-type(2){animation-delay:.04s}
+#messenger-app .m-community-section:nth-of-type(3){animation-delay:.1s}
+#messenger-app .m-community-row{position:relative;overflow:hidden;animation:m-row-enter .42s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(min(var(--row-index, 0), 8) * 35ms)}
+#messenger-app .m-community-row:before{content:"";position:absolute;inset:-1px;pointer-events:none;opacity:0;background:linear-gradient(110deg,transparent 15%,rgba(255,255,255,.14) 48%,transparent 80%);transform:translateX(-120%);transition:opacity .2s}
+#messenger-app .m-community-row:hover:before{opacity:1;animation:m-liquid-sheen .85s ease-out}
+#messenger-app .m-community-icon{transition:transform .35s cubic-bezier(.2,.9,.2,1),box-shadow .35s,background .35s}
+#messenger-app .m-community-row:hover .m-community-icon{transform:rotate(-7deg) scale(1.09);box-shadow:0 0 24px color-mix(in srgb,var(--accent) 22%,transparent),inset 1px 1px 1px rgba(255,255,255,.28)}
+#messenger-app .m-section-add{position:relative;overflow:visible;transition:transform .3s cubic-bezier(.2,1.5,.4,1),box-shadow .25s,background .25s}
+#messenger-app .m-section-add:hover{transform:rotate(90deg) scale(1.12);box-shadow:0 0 22px color-mix(in srgb,var(--accent) 35%,transparent)}
+#messenger-app .m-iconbtn{transition:transform .28s cubic-bezier(.2,1.4,.4,1),background .22s,border-color .22s,box-shadow .22s}
+#messenger-app .m-iconbtn:hover{transform:translateY(-2px) rotate(-4deg);box-shadow:0 7px 20px #0002}
+#messenger-app .m-primary{position:relative;overflow:hidden;transition:transform .24s cubic-bezier(.2,1.4,.4,1),filter .2s,box-shadow .25s}
+#messenger-app .m-primary:hover{transform:translateY(-2px) scale(1.015);filter:brightness(1.08)}
+#messenger-app .m-primary:active{transform:scale(.965)}
+#messenger-app .m-modal-backdrop{animation:m-backdrop-in .22s ease-out both}
+#messenger-app .m-modal{transform-origin:50% 62%;animation:m-modal-spring .48s cubic-bezier(.16,1,.3,1) both}
+#messenger-app .m-space-modal #m-space-form>label{animation:m-label-enter .32s ease-out both}
+#messenger-app .m-space-modal #m-space-form>label:nth-of-type(2){animation-delay:.035s}
+#messenger-app .m-space-modal #m-space-form>label:nth-of-type(3){animation-delay:.07s}
+#messenger-app .m-space-modal #m-space-form>label:nth-of-type(4){animation-delay:.105s}
+#messenger-app .m-space-modal .m-input{transition:border-color .2s,box-shadow .25s,background .25s,transform .2s}
+#messenger-app .m-space-modal .m-input:focus{transform:translateY(-1px);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 16%,transparent),0 10px 28px #0001}
+#messenger-app .m-space-extra{animation:m-section-rise .45s .12s both}
+#messenger-app .m-topbar{position:relative;isolation:isolate;overflow:hidden}
+#messenger-app .m-topbar:after{content:"";position:absolute;pointer-events:none;inset:0;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.045) 48%,transparent 70%);transform:translateX(-110%);animation:m-topbar-sheen 8s ease-in-out infinite}
+#messenger-app .m-topbar>*{position:relative;z-index:1}
+#messenger-app .m-bubble{transform-origin:bottom left;animation:m-message-arrive .34s cubic-bezier(.16,1,.3,1) both}
+#messenger-app .m-bubble.mine{transform-origin:bottom right}
+#messenger-app .m-bubble-wrap:nth-child(3n) .m-bubble{animation-delay:.025s}
+#messenger-app .m-empty-icon{animation:m-empty-float 4.6s ease-in-out infinite, m-empty-glow 5.5s ease-in-out infinite}
+#messenger-app .m-send-ready{animation:m-send-ready .55s cubic-bezier(.2,1.5,.4,1) both,m-glow 2.2s ease-in-out infinite}
+#messenger-app .m-toast:not(.hidden){animation:m-toast-arrive .36s cubic-bezier(.16,1,.3,1) both}
+#messenger-app .m-form-error{padding:10px 12px;border:1px solid rgba(255,110,130,.35);background:rgba(255,70,100,.09);color:#ffb3bf;border-radius:12px;font-size:12px;line-height:1.5;overflow-wrap:anywhere;animation:m-error-shake .32s ease-out both}
+#messenger-app .m-burst-anchor{position:relative;overflow:visible!important}
+#messenger-app .m-success-burst{position:absolute;z-index:20;left:50%;top:50%;width:1px;height:1px;pointer-events:none}
+#messenger-app .m-success-burst i{position:absolute;left:0;top:0;width:5px;height:9px;border-radius:3px;background:linear-gradient(180deg,var(--accent2),var(--accent));box-shadow:0 0 9px color-mix(in srgb,var(--accent) 60%,transparent);transform:rotate(var(--angle)) translateY(0) scale(.2);animation:m-success-particle .72s cubic-bezier(.15,.7,.2,1) var(--delay) both}
+@keyframes m-brand-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes m-mark-breathe{0%,100%{filter:drop-shadow(0 0 0 color-mix(in srgb,var(--accent) 0%,transparent));transform:rotate(0)}50%{filter:drop-shadow(0 4px 9px color-mix(in srgb,var(--accent) 38%,transparent));transform:rotate(2deg)}}
+@keyframes m-ambient-drift{0%{transform:translate3d(-15px,-10px,0) scale(.85)}100%{transform:translate3d(85px,95px,0) scale(1.2)}}
+@keyframes m-section-rise{from{opacity:0;transform:translateY(12px);filter:blur(3px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes m-row-enter{from{opacity:0;transform:translateX(-12px) scale(.98)}to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes m-liquid-sheen{0%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+@keyframes m-backdrop-in{from{opacity:0;backdrop-filter:blur(0)}to{opacity:1;backdrop-filter:blur(8px)}}
+@keyframes m-modal-spring{0%{opacity:0;transform:translateY(18px) scale(.94);filter:blur(6px)}70%{opacity:1;transform:translateY(-2px) scale(1.008);filter:blur(0)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes m-label-enter{from{opacity:0;transform:translateX(-5px)}to{opacity:1;transform:translateX(0)}}
+@keyframes m-topbar-sheen{0%,65%,100%{transform:translateX(-110%)}78%{transform:translateX(110%)}}
+@keyframes m-message-arrive{0%{opacity:0;transform:translateY(12px) scale(.94)}75%{opacity:1;transform:translateY(-1px) scale(1.006)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes m-empty-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(2deg)}}
+@keyframes m-empty-glow{0%,100%{box-shadow:0 0 0 color-mix(in srgb,var(--accent) 0%,transparent)}50%{box-shadow:0 0 36px color-mix(in srgb,var(--accent) 18%,transparent)}}
+@keyframes m-send-ready{0%{transform:scale(.86) rotate(-12deg)}70%{transform:scale(1.08) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes m-toast-arrive{from{opacity:0;transform:translate(-50%,12px) scale(.94);filter:blur(4px)}to{opacity:1;transform:translate(-50%,0) scale(1);filter:blur(0)}}
+@keyframes m-error-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+@keyframes m-success-particle{0%{opacity:0;transform:rotate(var(--angle)) translateY(0) scale(.3)}18%{opacity:1}100%{opacity:0;transform:rotate(var(--angle)) translateY(calc(-1 * var(--distance))) scale(1)}}
+@media(prefers-reduced-motion:reduce){#messenger-app *,#messenger-app *:before,#messenger-app *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+@media(max-width:760px){#messenger-app .m-community-list{max-height:112px}#messenger-app .m-modal-backdrop{padding:12px}}
