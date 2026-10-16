@@ -104,8 +104,8 @@ async function startCallInbox(){
 }
 async function sendCallInbox(userId,event,payload){
  if(!current?.supabase||!userId)return;
- const ch=current.supabase.channel("feather-call-inbox:"+userId,{config:{private:true,broadcast:{self:false}}});
- try{await waitChannelSubscribed(ch);const r=await ch.send({type:"broadcast",event,payload:{...payload,from:current.user.id}});if(r==="error")throw new Error("Не удалось передать вызов.");}
+ const ch=current.supabase.channel("feather-call-inbox:"+userId,{config:{private:true,broadcast:{self:false,httpSend:true}}});
+ try{const r=await ch.send({type:"broadcast",event,payload:{...payload,from:current.user.id}});if(r==="error")throw new Error("Не удалось передать вызов.");}
  finally{await current.supabase.removeChannel(ch);}
 }
 async function startCall(person,mode){
