@@ -153,11 +153,11 @@ function setCallStatus(value){const el=$("m-call-status");if(el)el.textContent=v
 async function handleCallSignal(p){
  if(!p||!currentCall||p.call_id!==currentCall.id||p.from===current.user.id)return;
  if(p.type==="accept"&&!currentCall.incoming){
-  currentCall.accepted=true;showCallOverlay("active");const pc=createCallPeer(),offer=await pc.createOffer();await pc.setLocalDescription(offer);await sendCallSignal("offer",{description:pc.localDescription});setCallStatus("Подключаемся…");return;
+  currentCall.accepted=true;showCallOverlay("active");const pc=createCallPeer(),offer=await pc.createOffer();await pc.setLocalDescription(offer);await sendCallSignal("offer",{description:{type:pc.localDescription.type,sdp:pc.localDescription.sdp}});setCallStatus("Подключаемся…");return;
  }
  if(p.type==="reject"||p.type==="end"){toast(p.type==="reject"?"Собеседник отклонил звонок.":"Звонок завершён.");await cleanupCall(false);return;}
  if(p.type==="offer"&&currentCall.incoming){
-  const pc=createCallPeer();await pc.setRemoteDescription(new RTCSessionDescription(p.description));await flushCallIce();const answer=await pc.createAnswer();await pc.setLocalDescription(answer);await sendCallSignal("answer",{description:pc.localDescription});currentCall.accepted=true;showCallOverlay("active");setCallStatus("Подключаемся…");return;
+  const pc=createCallPeer();await pc.setRemoteDescription(new RTCSessionDescription(p.description));await flushCallIce();const answer=await pc.createAnswer();await pc.setLocalDescription(answer);await sendCallSignal("answer",{description:{type:pc.localDescription.type,sdp:pc.localDescription.sdp}});currentCall.accepted=true;showCallOverlay("active");setCallStatus("Подключаемся…");return;
  }
  if(p.type==="answer"&&rtcPeer){await rtcPeer.setRemoteDescription(new RTCSessionDescription(p.description));await flushCallIce();return;}
  if(p.type==="ice"&&p.candidate&&rtcPeer){const candidate=new RTCIceCandidate(p.candidate);if(rtcPeer.remoteDescription)await rtcPeer.addIceCandidate(candidate);else pendingIceCandidates.push(candidate);}
