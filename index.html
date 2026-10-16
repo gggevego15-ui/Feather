@@ -177,7 +177,18 @@ if (!configured) {
   status("Интерфейс готов. Для реальной авторизации подключи Supabase — см. README.");
 } else {
   supabase.auth.onAuthStateChange((event, session) => {
-    if (event === "PASSWORD_RECOVERY") {\n      $("recovery-form").classList.remove("hidden");\n      $("email-form").classList.add("hidden");\n      $("google-button").classList.add("hidden");\n      $("phone-form").classList.add("hidden");\n      $("code-form").classList.add("hidden");\n      $("forgot-password").classList.add("hidden");\n      $("heading").textContent = "Новый пароль";\n      $("subtitle").textContent = "Придумай новый пароль для своего аккаунта.";\n      status("Ссылка подтверждена. Установи новый пароль.", true);\n    }\n    if (event === "SIGNED_IN" && session?.user) {
+    if (event === "PASSWORD_RECOVERY") {
+      $("recovery-form").classList.remove("hidden");
+      $("email-form").classList.add("hidden");
+      $("google-button").classList.add("hidden");
+      $("phone-form").classList.add("hidden");
+      $("code-form").classList.add("hidden");
+      $("forgot-password").classList.add("hidden");
+      $("heading").textContent = "Новый пароль";
+      $("subtitle").textContent = "Придумай новый пароль для своего аккаунта.";
+      status("Ссылка подтверждена. Установи новый пароль.", true);
+    }
+    if (event === "SIGNED_IN" && session?.user) {
       const user = session.user;
       status("Вход выполнен: " + (user.user_metadata?.display_name || user.email || user.phone || "Feather"), true);
     }
