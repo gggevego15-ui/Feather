@@ -7,8 +7,8 @@
   "scripts": {
     "build:web": "node scripts/prepare-web.mjs",
     "build:android": "npm run build:web && npx cap add android && npx cap sync android && node scripts/configure-android.mjs",
-    "build:windows": "npm run build:web && electron-builder --win nsis portable --publish never",
-    "start:desktop": "npm run build:web && electron ."
+    "build:windows": "npm run build:web && node scripts/generate-icon.mjs && electron-builder --win nsis portable --publish never",
+    "start:desktop": "npm run build:web && node scripts/generate-icon.mjs && electron ."
   },
   "dependencies": {
     "@capacitor/android": "8.5.1",
@@ -18,7 +18,9 @@
   "devDependencies": {
     "@capacitor/cli": "8.5.1",
     "electron": "44.8.0",
-    "electron-builder": "26.0.12"
+    "electron-builder": "26.0.12",
+    "sharp": "^0.34.2",
+    "png-to-ico": "^2.1.8"
   },
   "build": {
     "appId": "com.feather.messenger",
@@ -38,7 +40,8 @@
       "target": [
         "nsis",
         "portable"
-      ]
+      ],
+      "icon": "build/icon.ico"
     },
     "nsis": {
       "oneClick": false,
