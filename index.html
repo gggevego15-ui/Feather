@@ -340,10 +340,17 @@ async function handleAuthCallback(callbackUrl) {
       }
     }
     if (recovery) {
-      $("recovery-form").classList.remove("hidden");
+      showAuth();
+      $("profile-panel").classList.add("hidden");
       $("email-form").classList.add("hidden");
       $("google-button").classList.add("hidden");
       $("phone-form").classList.add("hidden");
+      $("code-form").classList.add("hidden");
+      $("switch-line").classList.add("hidden");
+      $("forgot-password").classList.add("hidden");
+      $("recovery-form").classList.remove("hidden");
+      $("heading").classList.remove("hidden");
+      $("subtitle").classList.remove("hidden");
       $("heading").textContent = "Новый пароль";
       $("subtitle").textContent = "Придумай новый пароль для своего аккаунта.";
       status("Ссылка подтверждена. Установи новый пароль.", true);
@@ -354,7 +361,10 @@ async function handleAuthCallback(callbackUrl) {
   } catch (error) { status("Не удалось завершить вход по ссылке: " + errorText(error)); }
 }
 window.addEventListener("feather:auth-callback", event => handleAuthCallback(event.detail));
-if (window.Capacitor?.isNativePlatform?.()) App.addListener("appUrlOpen", ({ url }) => handleAuthCallback(url));
+if (window.Capacitor?.isNativePlatform?.()) {
+  App.addListener("appUrlOpen", ({ url }) => handleAuthCallback(url));
+  App.getLaunchUrl().then(result => { if (result?.url) handleAuthCallback(result.url); }).catch(() => {});
+}
 
 
   supabase.auth.getSession().then(({data}) => { if (data.session?.user) showProfile(data.session.user); });
