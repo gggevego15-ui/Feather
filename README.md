@@ -21,8 +21,10 @@ Artifacts are kept for 14 days. These are testing builds; the Android APK is a d
 - **Backend:** Supabase Auth + Postgres.
 - **Profiles:** unique case-insensitive `@username`, display name, profile editing, and username search.
 - **Private chats:** one-to-one messages stored in Supabase, protected by row-level security, with live updates through Supabase Realtime.
-- **Themes:** Aurora, Ocean, and Paper; the selection is saved on the device.
-- **Buttons and animations:** the build script scans image assets in the repository and generates an asset manifest. Matching button/GIF/APNG assets are applied when available; the chat UI also includes hover, pop-in, and send-button animations.
+- **Themes:** Светлая, Тёмная, and Liquid Glass; the selection is saved on the device.
+- **Settings:** theme selection, compact chat list, Enter-to-send preference, animation toggle, profile editing, and logout. Preferences are saved locally.
+- **Telegram-inspired chat UI:** two-pane chat list and conversation view, message history, date separators, timestamps, responsive mobile navigation, realtime updates, and a sent check mark. This is still an early version; voice/video calls, groups, stickers, read receipts, and message editing/deletion are not implemented yet.
+- **Buttons and animations:** the build script scans image assets in the repository and generates an asset manifest. Matching button/GIF/APNG assets are applied when available; CI logs the discovered image assets to help confirm the exact button files are detected.
 
 ## Required Supabase redirect setting
 
