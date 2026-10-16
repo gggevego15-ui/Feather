@@ -42,6 +42,7 @@ label{display:block;font-size:12px;color:#aeb8ca;margin:0 0 8px 2px}.field{width
     <button class="btn google" id="phone-submit" type="submit">Получить код по SMS</button>
   </form>
   <form id="code-form" class="hidden"><label for="sms-code">Код из SMS</label><input class="field" id="sms-code" inputmode="numeric" autocomplete="one-time-code" placeholder="Код подтверждения" required><button class="btn primary" type="submit">Подтвердить номер</button></form>
+  <form id="recovery-form" class="hidden"><label for="new-password">Новый пароль</label><input class="field" id="new-password" type="password" autocomplete="new-password" minlength="6" placeholder="Не менее 6 символов" required><button class="btn primary" type="submit">Сохранить новый пароль</button></form>
   <p id="status" class="message" role="status" aria-live="polite"></p>
   <p class="switch" id="switch-line">Нет аккаунта? <button class="link" id="switch-mode" type="button">Зарегистрироваться</button></p>
   <p class="small">Настоящие аккаунты работают через Supabase после подключения проекта. Пароль Google вводится только на официальной странице Google.</p>
@@ -176,7 +177,7 @@ if (!configured) {
   status("Интерфейс готов. Для реальной авторизации подключи Supabase — см. README.");
 } else {
   supabase.auth.onAuthStateChange((event, session) => {
-    if (event === "SIGNED_IN" && session?.user) {
+    if (event === "PASSWORD_RECOVERY") {\n      $("recovery-form").classList.remove("hidden");\n      $("email-form").classList.add("hidden");\n      $("google-button").classList.add("hidden");\n      $("phone-form").classList.add("hidden");\n      $("code-form").classList.add("hidden");\n      $("forgot-password").classList.add("hidden");\n      $("heading").textContent = "Новый пароль";\n      $("subtitle").textContent = "Придумай новый пароль для своего аккаунта.";\n      status("Ссылка подтверждена. Установи новый пароль.", true);\n    }\n    if (event === "SIGNED_IN" && session?.user) {
       const user = session.user;
       status("Вход выполнен: " + (user.user_metadata?.display_name || user.email || user.phone || "Feather"), true);
     }
