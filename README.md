@@ -1,35 +1,42 @@
-# Feather Messenger
+# Feather Messenger — Android APK + Windows EXE
 
-Feather is a custom-styled messenger frontend. The authentication screen supports:
-- Email + password registration and login
-- Email confirmation (depending on Supabase Auth settings)
-- Google OAuth login
-- Password reset by email
-- Phone + SMS code login (requires an SMS provider configured in Supabase)
+Feather is being built as a **native-installable app**, not as a website project. GitHub stores the source and GitHub Actions builds the Android APK and Windows EXE.
 
-## Authentication setup (required for real accounts)
+## App builds
 
-The frontend is now connected to the existing Supabase project `Sinchat` (`hdueaohjhlqhxlpehnqt`). The browser uses only the public publishable key; never add a service-role/secret key to this repository. The Supabase project was resumed from an inactive state and may need a short time to become ready.
+Open the repository's **Actions → Build Feather apps** workflow. Every relevant push to `main` starts builds, and you can also start it manually with **Run workflow**.
 
-1. Open https://supabase.com/dashboard and create/select your project.
-2. In **Project Settings → API**, copy the **Project URL** and **Publishable key** (older projects may label the public client key as `anon`). These are browser client values; never put a service-role/secret key in frontend code.
-3. The project URL and public publishable key are already configured in `index.html`; do not replace them with a service-role/secret key.
-4. In **Authentication → URL Configuration**, set the Site URL to `https://gggevego15-ui.github.io/Feather/` and add `https://gggevego15-ui.github.io/Feather/**` to the Redirect URLs list.
-5. In **Authentication → Providers**, enable Email. To use Google, configure the Google provider credentials in Supabase and enable it. For phone login, enable Phone and configure a supported SMS provider.
-6. For email confirmation, configure the email templates and SMTP settings appropriate for your project. Test with a mailbox you control.
+When both jobs finish:
+1. Open the successful workflow run.
+2. Scroll to **Artifacts**.
+3. Download `Feather-Android-APK` to get the Android debug APK.
+4. Download `Feather-Windows` to get the Windows installer and portable EXE.
 
-## Deploy
+The artifacts are temporary (kept for 14 days); download them from the workflow run. These are CI builds, not signed store releases.
 
-The repository contains a GitHub Actions workflow at `.github/workflows/pages.yml`. In GitHub repository **Settings → Pages**, select **GitHub Actions** as the deployment source if it is not already enabled. The expected project site URL is `https://gggevego15-ui.github.io/Feather/`. Then check the **Actions** tab for the deployment result and open the published URL shown by the workflow. The app includes a web manifest, an SVG icon, and a lightweight service worker for installability/offline shell caching. On desktop/mobile browsers, use the browser's **Install app** / **Add to Home Screen** option when available.
+## Stack
 
-## Security notes
+- **Android:** Capacitor 8; the workflow generates the Android project and builds `app-debug.apk`.
+- **Windows:** Electron 44; the workflow builds an installer and a portable `.exe`.
+- **Backend:** Supabase Auth + Postgres.
+- **Profiles:** unique case-insensitive `@username`, display name, and profile editing.
 
-- Never expose a Supabase service-role key or any private OAuth client secret in this frontend.
-- Do not disable Row Level Security (RLS) to make a feature appear to work.
-- The current milestone authenticates users. It does not yet implement chat storage, realtime messaging, or a protected user directory.
-- Google login works only after enabling/configuring Google OAuth in Supabase. SMS login needs an enabled Phone provider and a configured SMS service. These optional providers are not automatically enabled.
-- Supabase phone authentication may require billing/configuration for the SMS provider.
+## Supabase
 
-## Next milestone
+The app uses the existing Supabase project `Sinchat` (project ref `hdueaohjhlqhxlpehnqt`) and only its public publishable key in the client. Never add a Supabase service-role/secret key to the repository.
 
-Create the secure database schema and RLS policies for user profiles, unique `@usernames`, conversations, and realtime messages.
+For email confirmations and password recovery, Supabase redirects to:
+`https://gggevego15-ui.github.io/Feather/`
+
+Configure this URL in **Supabase → Authentication → URL Configuration** as Site URL and add it to Redirect URLs. Email/password is the main sign-in path. Google OAuth and SMS login need their providers configured separately.
+
+## Profiles and username rules
+
+- Username is 3–24 characters: lowercase English letters, digits, and underscores.
+- Usernames are unique regardless of letter case.
+- Supabase creates a profile automatically when an auth user is created.
+- Profile row-level security is enabled; users can edit only their own profile.
+
+## Current scope
+
+The current build contains registration/login and editable profiles. Private conversations, user search UI, realtime messaging, and a signed Android release are later milestones. A debug APK can be installed for testing after downloading the workflow artifact.
