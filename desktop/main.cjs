@@ -44,6 +44,7 @@ function createWindow() {
     minWidth: 360,
     minHeight: 560,
     title: "Feather Messenger",
+    icon: path.join(__dirname, "..", "build", "icon.png"),
     backgroundColor: "#0b0e14",
     autoHideMenuBar: true,
     webPreferences: {
