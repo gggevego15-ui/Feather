@@ -551,3 +551,46 @@
 @media(prefers-reduced-transparency:reduce){
  #messenger-app .m-sidebar,#messenger-app .m-topbar,#messenger-app .m-composer,#messenger-app .m-modal,#messenger-app .m-chatrow,#messenger-app .m-bubble,#messenger-app .m-input,#messenger-app .m-compose,#messenger-app .m-iconbtn{backdrop-filter:none;-webkit-backdrop-filter:none}
 }
+
+
+/* Groups and channels */
+#messenger-app .m-section-head{display:flex;align-items:center;justify-content:space-between;padding:5px 16px 7px}
+#messenger-app .m-section-head .m-section-label{padding:0 4px}
+#messenger-app .m-section-add{width:27px;height:27px;flex:0 0 27px;border:1px solid rgba(255,255,255,.19);border-radius:9px;color:var(--text);background:rgba(255,255,255,.055);font-size:18px;line-height:1;transition:transform .18s,background .18s,border-color .18s}
+#messenger-app .m-section-add:hover{transform:scale(1.08);background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.36)}
+#messenger-app .m-community-section{flex:0 0 auto;min-height:0;padding-bottom:7px}
+#messenger-app .m-community-list{max-height:132px;overflow:auto;padding:0 9px 2px;scrollbar-width:thin}
+#messenger-app .m-community-row{width:100%;display:flex;align-items:center;gap:10px;text-align:left;padding:8px 10px;border:1px solid transparent;border-radius:14px;color:var(--text);background:transparent;margin-bottom:3px;transition:background .18s,border-color .18s,transform .18s}
+#messenger-app .m-community-row:hover,#messenger-app .m-community-row.active{background:linear-gradient(135deg,rgba(255,255,255,.105),rgba(255,255,255,.025));border-color:rgba(255,255,255,.17)}
+#messenger-app .m-community-row:hover{transform:translateX(2px)}
+#messenger-app .m-community-icon{width:35px;height:35px;flex:0 0 35px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.23);border-radius:13px;background:linear-gradient(140deg,rgba(255,255,255,.16),rgba(255,255,255,.035));box-shadow:inset 1px 1px 1px rgba(255,255,255,.2);font-size:18px}
+#messenger-app .m-community-icon-large{width:42px;height:42px;flex-basis:42px;border-radius:15px;font-size:22px}
+#messenger-app .m-community-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:4px}
+#messenger-app .m-community-copy strong{font-size:12px;font-weight:760;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#messenger-app .m-community-copy small{font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#messenger-app .m-community-state{color:var(--muted);font-size:15px}
+#messenger-app .m-space-topcopy{min-width:0;flex:1}
+#messenger-app .m-space-sender{font-size:11px;font-weight:750;color:var(--accent2);margin:0 0 5px 7px}
+#messenger-app .m-space-modal{max-height:min(86vh,780px);overflow:auto}
+#messenger-app .m-space-description{display:block;resize:vertical;min-height:76px;margin:0 0 14px}
+#messenger-app .m-space-modal form>label{display:block;margin:12px 0 7px}
+#messenger-app .m-space-modal form>.m-input{margin-bottom:7px}
+#messenger-app .m-space-modal select.m-input{appearance:auto}
+#messenger-app .m-space-extra{border-top:1px solid rgba(255,255,255,.12);margin-top:20px;padding-top:16px}
+#messenger-app .m-space-invite-row{display:flex;gap:8px;align-items:center}
+#messenger-app .m-space-invite-row .m-input{flex:1;min-width:0}
+#messenger-app .m-space-invite-row .m-primary{white-space:nowrap}
+#messenger-app .m-space-extra .m-hint{margin:9px 0 15px;font-size:11px;line-height:1.5}
+#messenger-app .m-space-delete{border-color:rgba(255,112,139,.24);color:#ffb3c2}
+#messenger-app .m-space-delete:hover{background:rgba(255,112,139,.09)}
+#messenger-app .m-community-list .m-hint{padding:5px 12px;font-size:11px;line-height:1.45}
+#messenger-app .m-community-row{background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.012))!important;border-color:rgba(255,255,255,.075)}
+#messenger-app .m-community-row.active{background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.025))!important;border-color:rgba(255,255,255,.24)}
+#messenger-app .m-community-row .m-community-icon{backdrop-filter:blur(9px) saturate(170%);-webkit-backdrop-filter:blur(9px) saturate(170%)}
+@media(max-width:760px){
+ #messenger-app .m-community-section{padding-bottom:5px}
+ #messenger-app .m-community-list{max-height:105px}
+ #messenger-app .m-space-modal{width:min(100%,520px);padding:18px}
+ #messenger-app .m-space-invite-row{align-items:stretch;flex-wrap:wrap}
+ #messenger-app .m-space-invite-row .m-primary{width:100%}
+}
