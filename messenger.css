@@ -147,3 +147,29 @@
 #messenger-app.m-no-animations .m-voice-record.m-recording{animation:none!important}
 @media(prefers-reduced-motion:reduce){#messenger-app .m-voice-record.m-recording{animation:none!important}}
 @media(max-width:520px){#messenger-app .m-voice-status{font-size:10px}#messenger-app .m-voice-player{min-width:150px}#messenger-app .m-voice-player audio{width:150px}}
+
+/* Feather message receipts and circular voice-note player */
+#messenger-app .m-bubble-time{display:flex;align-items:center;justify-content:flex-end;gap:5px}
+#messenger-app .m-message-receipt{display:inline-flex;align-items:center;justify-content:center;min-width:18px;margin-left:1px;color:var(--muted);font-size:12px;font-weight:850;letter-spacing:-4px;padding-right:4px;line-height:1;opacity:.9;transition:color .2s,filter .2s,transform .2s}
+#messenger-app .m-message-receipt.is-read{color:#62c7ff;filter:drop-shadow(0 0 5px #62c7ff70);animation:m-receipt-read .32s cubic-bezier(.2,.8,.2,1) both}
+#messenger-app .m-voice-bubble{min-width:250px;padding:12px 14px 9px}
+#messenger-app .m-voice-player{display:flex;align-items:center;gap:11px;width:min(310px,65vw);min-width:220px;max-width:100%;padding:2px 0}
+#messenger-app .m-voice-play{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;border:1px solid color-mix(in srgb,var(--accent) 48%,var(--line));border-radius:50%;background:linear-gradient(145deg,var(--accent),var(--accent2));color:#111722;font-size:15px;font-weight:900;padding-left:3px;box-shadow:0 5px 16px color-mix(in srgb,var(--accent) 25%,transparent),inset 0 1px #ffffffa8;transition:transform .2s,box-shadow .2s}
+#messenger-app .m-voice-play:hover{transform:scale(1.07);box-shadow:0 7px 23px color-mix(in srgb,var(--accent) 38%,transparent)}
+#messenger-app .m-voice-play:active{transform:scale(.93)}
+#messenger-app .m-voice-play.is-playing{padding-left:0}
+#messenger-app .m-voice-track{flex:1;min-width:0}
+#messenger-app .m-voice-wave{height:32px;position:relative;display:flex;align-items:center;justify-content:space-between;gap:2px;overflow:hidden;isolation:isolate;--voice-progress:0}
+#messenger-app .m-voice-wave i{height:var(--bar-height,35%);min-height:4px;flex:1;max-width:4px;border-radius:999px;background:color-mix(in srgb,var(--muted) 58%,var(--accent));opacity:.68;transform-origin:center;transition:background .16s,opacity .16s}
+#messenger-app .m-voice-wave .m-voice-progress{position:absolute;inset:0 auto 0 0;width:calc(var(--voice-progress)*100%);max-width:100%;pointer-events:none;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 70%,transparent),color-mix(in srgb,var(--accent2) 55%,transparent));opacity:.8;mix-blend-mode:screen;mask-image:linear-gradient(90deg,#000 0 100%);transition:width .12s linear}
+#messenger-app .m-voice-player.is-playing .m-voice-wave i{animation:m-voice-bars .72s ease-in-out infinite alternate;animation-delay:calc(var(--bar-height,35%)*-8ms);opacity:.95}
+#messenger-app .m-voice-player.is-playing .m-voice-wave i:nth-child(3n){animation-delay:-.24s}
+#messenger-app .m-voice-player.is-playing .m-voice-wave i:nth-child(4n){animation-delay:-.42s}
+#messenger-app .m-voice-time{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:2px}
+#messenger-app .m-voice-player audio{display:none}
+#messenger-app .m-voice-bubble .m-bubble-time{margin-top:7px}
+@keyframes m-receipt-read{0%{opacity:.25;transform:scale(.7)}70%{opacity:1;transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes m-voice-bars{0%{transform:scaleY(.58)}100%{transform:scaleY(1.18)}}
+#messenger-app.m-no-animations .m-message-receipt.is-read,#messenger-app.m-no-animations .m-voice-player.is-playing .m-voice-wave i{animation:none!important}
+@media(prefers-reduced-motion:reduce){#messenger-app .m-message-receipt.is-read,#messenger-app .m-voice-player.is-playing .m-voice-wave i{animation:none!important}}
+@media(max-width:520px){#messenger-app .m-voice-player{width:min(260px,63vw);min-width:175px;gap:8px}#messenger-app .m-voice-play{width:39px;height:39px;flex-basis:39px}#messenger-app .m-voice-wave{height:29px}#messenger-app .m-voice-bubble{min-width:210px}}
