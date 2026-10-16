@@ -14,6 +14,7 @@
 .tabs{display:grid;grid-template-columns:1fr 1fr;background:#090c12;border:1px solid var(--line);padding:4px;border-radius:13px;margin-bottom:22px}.tab{border:0;border-radius:9px;background:transparent;color:#909bb0;padding:11px;cursor:pointer;font-weight:650}.tab.active{background:#252b3b;color:white;box-shadow:0 2px 9px #0004}
 label{display:block;font-size:12px;color:#aeb8ca;margin:0 0 8px 2px}.field{width:100%;border:1px solid #30394c;background:#0b0f17;color:var(--text);padding:14px 15px;border-radius:12px;outline:none;font-size:14px;margin-bottom:16px;transition:.2s}.field:focus{border-color:#ff8b72;box-shadow:0 0 0 3px #ff8b7220}.btn{width:100%;border:0;border-radius:12px;padding:14px 16px;font-weight:750;font-size:14px;cursor:pointer;transition:transform .15s,filter .15s}.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}.primary{background:linear-gradient(110deg,#ffad84,#c1f17f);color:#0c1020;box-shadow:0 9px 24px #8176ff25}.google{background:#171d29;color:#f3f5fa;border:1px solid #30394c;margin-top:10px}.divider{display:flex;align-items:center;gap:12px;color:#778398;font-size:11px;margin:18px 0}.divider:before,.divider:after{content:"";height:1px;background:#293143;flex:1}.switch{font-size:13px;text-align:center;color:#8d98ac;margin-top:22px}.link{background:none;border:0;color:#b6adff;font:inherit;cursor:pointer}.message{min-height:20px;font-size:12px;line-height:1.45;color:#ffb4b4;margin:10px 0 0}.message.ok{color:#70e2c6}.hidden{display:none!important}.google-icon{display:inline-grid;place-items:center;width:18px;height:18px;margin-right:9px;border-radius:50%;background:white;color:#4285f4;font-weight:900}
 #phone-step{margin-top:10px}.small{font-size:11px;color:#78859b;line-height:1.5;margin-top:16px}.recaptcha{margin:10px 0}
+.profile-panel{width:100%;max-width:440px;margin:0 auto}.profile-card{border:1px solid #ffffff16;background:#0b0f17;border-radius:20px;padding:22px}.profile-avatar{width:66px;height:66px;border-radius:22px;background:linear-gradient(135deg,#ffad84,#c1f17f);color:#10141d;display:grid;place-items:center;font-size:27px;font-weight:900;margin-bottom:16px}.profile-handle{color:var(--accent2);font-size:14px;margin-top:5px}.profile-actions{display:flex;gap:10px;margin-top:12px}.profile-actions .btn{flex:1}.secondary{background:#171d29;color:#f3f5fa;border:1px solid #30394c}.profile-panel .field{margin-bottom:12px}.profile-note{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 18px}.username-prefix{color:var(--accent2)}
 @media(max-width:720px){body{padding:12px}.shell{grid-template-columns:1fr;min-height:0;border-radius:22px}.brand{padding:25px 25px 20px;border-right:0;border-bottom:1px solid #ffffff12;gap:24px}.hero h1{font-size:32px}.hero p,.chips,.foot{display:none}.auth{padding:28px 24px 32px}.auth h2{font-size:24px}}
 </style>
 </head>
@@ -28,7 +29,7 @@ label{display:block;font-size:12px;color:#aeb8ca;margin:0 0 8px 2px}.field{width
   <h2 id="heading">Добро пожаловать</h2><p class="sub" id="subtitle">Войди или создай аккаунт Feather.</p>
   <div class="tabs"><button class="tab active" id="login-tab" type="button">Войти</button><button class="tab" id="register-tab" type="button">Регистрация</button></div>
   <form id="email-form">
-    <div id="name-wrap" class="hidden"><label for="display-name">Как тебя зовут?</label><input class="field" id="display-name" autocomplete="name" placeholder="Имя в Feather" maxlength="40"></div>
+    <div id="name-wrap" class="hidden"><label for="display-name">Отображаемое имя</label><input class="field" id="display-name" autocomplete="name" placeholder="Как тебя зовут?" maxlength="40"><label for="username">Уникальный @username</label><input class="field" id="username" autocomplete="username" placeholder="например, sinrok_07" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]{3,24}" autocapitalize="none" spellcheck="false"><p class="profile-note">3–24 символа: английские буквы, цифры и _. Имя должно быть свободно.</p></div>
     <label for="email">Электронная почта</label><input class="field" id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
     <label for="password">Пароль</label><input class="field" id="password" type="password" autocomplete="current-password" placeholder="Минимум 6 символов" minlength="6" required>
     <button class="btn primary" id="email-submit" type="submit">Войти в Feather</button>
@@ -45,7 +46,21 @@ label{display:block;font-size:12px;color:#aeb8ca;margin:0 0 8px 2px}.field{width
   <form id="recovery-form" class="hidden"><label for="new-password">Новый пароль</label><input class="field" id="new-password" type="password" autocomplete="new-password" minlength="6" placeholder="Не менее 6 символов" required><button class="btn primary" type="submit">Сохранить новый пароль</button></form>
   <p id="status" class="message" role="status" aria-live="polite"></p>
   <p class="switch" id="switch-line">Нет аккаунта? <button class="link" id="switch-mode" type="button">Зарегистрироваться</button></p>
-  <p class="small">Настоящие аккаунты работают через Supabase после подключения проекта. Пароль Google вводится только на официальной странице Google.</p>
+  <p class="small">Feather Messenger · профиль и аккаунт</p>
+  <section id="profile-panel" class="profile-panel hidden" aria-label="Профиль Feather">
+    <div class="profile-card">
+      <div id="profile-avatar" class="profile-avatar">F</div>
+      <h2 id="profile-title">Твой профиль</h2>
+      <p id="profile-handle" class="profile-handle">@username</p>
+      <p class="profile-note">Это твой профиль Feather. Уникальный username нужен, чтобы друзья могли найти тебя в мессенджере.</p>
+      <form id="profile-form">
+        <label for="profile-name">Имя</label><input class="field" id="profile-name" maxlength="40" placeholder="Твоё имя" required>
+        <label for="profile-username">Уникальный @username</label><input class="field" id="profile-username" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]{3,24}" autocapitalize="none" spellcheck="false" required>
+        <button class="btn primary" id="profile-save" type="submit">Сохранить профиль</button>
+      </form>
+      <div class="profile-actions"><button class="btn secondary" id="profile-refresh" type="button">Обновить</button><button class="btn secondary" id="logout-button" type="button">Выйти</button></div>
+    </div>
+  </section>
 </section>
 </main>
 <script type="module">
@@ -59,6 +74,56 @@ const supabase = configured ? createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KE
 }) : null;
 const $ = id => document.getElementById(id);
 let mode = "login";
+let currentUser = null;
+const usernamePattern = /^[a-z0-9_]{3,24}$/;
+function showAuth() {
+  $("profile-panel").classList.add("hidden");
+  $("heading").classList.remove("hidden");
+  $("subtitle").classList.remove("hidden");
+  document.querySelector(".tabs").classList.remove("hidden");
+  $("email-form").classList.remove("hidden");
+  $("google-button").classList.remove("hidden");
+  document.querySelector(".divider").classList.remove("hidden");
+  $("phone-form").classList.remove("hidden");
+  $("switch-line").classList.remove("hidden");
+  document.querySelector(".small").classList.remove("hidden");
+}
+async function showProfile(user) {
+  if (!user || !supabase) return;
+  currentUser = user;
+  $("heading").classList.add("hidden");
+  $("subtitle").classList.add("hidden");
+  document.querySelector(".tabs").classList.add("hidden");
+  $("email-form").classList.add("hidden");
+  $("google-button").classList.add("hidden");
+  document.querySelector(".divider").classList.add("hidden");
+  $("phone-form").classList.add("hidden");
+  $("code-form").classList.add("hidden");
+  $("recovery-form").classList.add("hidden");
+  $("switch-line").classList.add("hidden");
+  document.querySelector(".small").classList.add("hidden");
+  $("profile-panel").classList.remove("hidden");
+  try {
+    let { data: profile, error } = await supabase.from("profiles").select("id,username,name").eq("id", user.id).maybeSingle();
+    if (error) throw error;
+    if (!profile) {
+      const fallback = "user_" + user.id.replaceAll("-", "").slice(0, 16);
+      const { data: created, error: createError } = await supabase.from("profiles").insert({
+        id: user.id, username: fallback, name: user.user_metadata?.display_name || user.email?.split("@")[0] || "Пользователь"
+      }).select("id,username,name").single();
+      if (createError) throw createError;
+      profile = created;
+    }
+    $("profile-name").value = profile.name || "";
+    $("profile-username").value = profile.username || "";
+    $("profile-title").textContent = profile.name || "Твой профиль";
+    $("profile-handle").textContent = "@" + (profile.username || "username");
+    $("profile-avatar").textContent = (profile.name || profile.username || "F").trim().charAt(0).toUpperCase();
+    status("Вход выполнен. Профиль загружен.", true);
+  } catch (error) {
+    status("Вход выполнен, но профиль не загрузился: " + errorText(error));
+  }
+}
 function status(text, ok=false) { $("status").textContent = text; $("status").classList.toggle("ok", ok); }
 function ready() {
   if (!supabase) {
@@ -84,6 +149,7 @@ function setMode(next) {
   $("login-tab").classList.toggle("active", !reg);
   $("register-tab").classList.toggle("active", reg);
   $("name-wrap").classList.toggle("hidden", !reg);
+  $("username").required = reg;
   $("heading").textContent = reg ? "Создать аккаунт" : "Добро пожаловать";
   $("subtitle").textContent = reg ? "Твой уголок общения начинается здесь." : "Продолжим с того места, где остановились.";
   $("email-submit").textContent = reg ? "Создать аккаунт" : "Войти в Feather";
@@ -105,22 +171,24 @@ $("email-form").addEventListener("submit", async event => {
   const email = $("email").value.trim();
   const password = $("password").value;
   const displayName = $("display-name").value.trim();
+  const username = $("username").value.trim().toLowerCase();
+  if (mode === "register" && !usernamePattern.test(username)) { status("Username: 3–24 символа, только английские буквы, цифры и _."); return; }
   try {
     if (mode === "register") {
       const { data, error } = await supabase.auth.signUp({
         email, password,
         options: {
-          data: { display_name: displayName || "Пользователь" },
+          data: { display_name: displayName || "Пользователь", username },
           emailRedirectTo: window.location.origin + window.location.pathname
         }
       });
       if (error) throw error;
-      if (data.session) status("Аккаунт создан! Ты вошёл как " + email, true);
+      if (data.session) await showProfile(data.user);
       else status("Почти готово! Открой письмо от Supabase и подтверди адрес электронной почты.", true);
     } else {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      status("С возвращением, " + (data.user.user_metadata?.display_name || data.user.email) + "!", true);
+      await showProfile(data.user);
     }
   } catch (error) { status(errorText(error)); }
   finally { button.disabled = false; button.textContent = mode === "register" ? "Создать аккаунт" : "Войти в Feather"; }
@@ -192,9 +260,39 @@ $("recovery-form").addEventListener("submit", async event => {
   } catch (error) { status(errorText(error)); }
 });
 
+$("profile-form").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!ready() || !currentUser) return;
+  const name = $("profile-name").value.trim();
+  const username = $("profile-username").value.trim().toLowerCase();
+  if (!name || name.length > 40) { status("Имя должно содержать от 1 до 40 символов."); return; }
+  if (!usernamePattern.test(username)) { status("Username: 3–24 символа, только английские буквы, цифры и _."); return; }
+  const button = $("profile-save");
+  button.disabled = true; button.textContent = "Сохраняю…";
+  try {
+    const { error } = await supabase.from("profiles").update({ name, username }).eq("id", currentUser.id);
+    if (error) {
+      if (/duplicate key|unique constraint|profiles_username_lower_unique/i.test(error.message || "")) throw new Error("Этот @username уже занят. Попробуй другой.");
+      if (/profiles_username_format_check/i.test(error.message || "")) throw new Error("Username должен содержать 3–24 символа: a–z, 0–9 и _.");
+      throw error;
+    }
+    $("profile-title").textContent = name;
+    $("profile-handle").textContent = "@" + username;
+    $("profile-avatar").textContent = name.charAt(0).toUpperCase();
+    status("Профиль сохранён: @" + username, true);
+  } catch (error) { status(errorText(error)); }
+  finally { button.disabled = false; button.textContent = "Сохранить профиль"; }
+});
+$("profile-refresh").addEventListener("click", () => currentUser && showProfile(currentUser));
+$("logout-button").addEventListener("click", async () => {
+  if (!ready()) return;
+  const { error } = await supabase.auth.signOut();
+  if (error) status(errorText(error));
+});
 if (!configured) {
   status("Интерфейс готов. Для реальной авторизации подключи Supabase — см. README.");
 } else {
+  supabase.auth.getSession().then(({data}) => { if (data.session?.user) showProfile(data.session.user); });
   supabase.auth.onAuthStateChange((event, session) => {
     if (event === "PASSWORD_RECOVERY") {
       $("recovery-form").classList.remove("hidden");
@@ -208,9 +306,9 @@ if (!configured) {
       status("Ссылка подтверждена. Установи новый пароль.", true);
     }
     if (event === "SIGNED_IN" && session?.user) {
-      const user = session.user;
-      status("Вход выполнен: " + (user.user_metadata?.display_name || user.email || user.phone || "Feather"), true);
+      showProfile(session.user);
     }
+    if (event === "SIGNED_OUT") { currentUser = null; showAuth(); status("Ты вышел из аккаунта.", true); }
   });
 }
 </script>
