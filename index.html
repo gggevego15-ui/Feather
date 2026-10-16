@@ -66,6 +66,7 @@ label{display:block;font-size:12px;color:#aeb8ca;margin:0 0 8px 2px}.field{width
 <script src="./asset-manifest.js"></script>
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { App } from "https://esm.sh/@capacitor/app@8.0.1";
 
 const SUPABASE_URL = "https://hdueaohjhlqhxlpehnqt.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_KRaLRbFNpALf2rn6hWXTUw_mWaZ0N0w";
@@ -74,7 +75,7 @@ const supabase = configured ? createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KE
   auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
 }) : null;
 const $ = id => document.getElementById(id);
-const authRedirectUrl = () => window.location.hostname.endsWith("github.io") ? window.location.origin + window.location.pathname : "https://gggevego15-ui.github.io/Feather/";
+const authRedirectUrl = () => "feather://auth";
 let mode = "login";
 let currentUser = null;
 const usernamePattern = /^[a-z0-9_]{3,24}$/;
@@ -319,6 +320,43 @@ $("logout-button").addEventListener("click", async () => {
 if (!configured) {
   status("Интерфейс готов. Для реальной авторизации подключи Supabase — см. README.");
 } else {
+  
+async function handleAuthCallback(callbackUrl) {
+  if (!supabase || !callbackUrl || !callbackUrl.startsWith("feather://auth")) return;
+  try {
+    const parsed = new URL(callbackUrl);
+    const params = new URLSearchParams(parsed.hash.replace(/^#/, ""));
+    const recovery = parsed.searchParams.get("type") === "recovery" || params.get("type") === "recovery";
+    const code = parsed.searchParams.get("code");
+    if (code) {
+      const { error } = await supabase.auth.exchangeCodeForSession(code);
+      if (error) throw error;
+    } else {
+      const access_token = params.get("access_token") || parsed.searchParams.get("access_token");
+      const refresh_token = params.get("refresh_token") || parsed.searchParams.get("refresh_token");
+      if (access_token && refresh_token) {
+        const { error } = await supabase.auth.setSession({ access_token, refresh_token });
+        if (error) throw error;
+      }
+    }
+    if (recovery) {
+      $("recovery-form").classList.remove("hidden");
+      $("email-form").classList.add("hidden");
+      $("google-button").classList.add("hidden");
+      $("phone-form").classList.add("hidden");
+      $("heading").textContent = "Новый пароль";
+      $("subtitle").textContent = "Придумай новый пароль для своего аккаунта.";
+      status("Ссылка подтверждена. Установи новый пароль.", true);
+    } else {
+      const { data } = await supabase.auth.getSession();
+      if (data.session?.user) await showProfile(data.session.user);
+    }
+  } catch (error) { status("Не удалось завершить вход по ссылке: " + errorText(error)); }
+}
+window.addEventListener("feather:auth-callback", event => handleAuthCallback(event.detail));
+App.addListener("appUrlOpen", ({ url }) => handleAuthCallback(url));
+
+
   supabase.auth.getSession().then(({data}) => { if (data.session?.user) showProfile(data.session.user); });
   supabase.auth.onAuthStateChange((event, session) => {
     if (event === "PASSWORD_RECOVERY") {
