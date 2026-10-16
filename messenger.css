@@ -107,3 +107,16 @@
 @keyframes m-empty-float{0%,100%{translate:0 0;rotate:-3deg}50%{translate:0 -5px;rotate:3deg}}
 #messenger-app.m-no-animations .m-ripple,#messenger-app.m-no-animations .m-tap-pop,#messenger-app.m-no-animations .m-chatrow-wrap,#messenger-app.m-no-animations .m-bubble,#messenger-app.m-no-animations .m-modal-backdrop,#messenger-app.m-no-animations .m-modal,#messenger-app.m-no-animations #m-toast:not(.hidden),#messenger-app.m-no-animations .m-send-ready,#messenger-app.m-no-animations .m-result,#messenger-app.m-no-animations .m-empty-icon{animation:none!important}
 @media(prefers-reduced-motion:reduce){#messenger-app .m-ripple,#messenger-app .m-tap-pop,#messenger-app .m-chatrow-wrap,#messenger-app .m-bubble,#messenger-app .m-modal-backdrop,#messenger-app .m-modal,#messenger-app #m-toast:not(.hidden),#messenger-app .m-send-ready,#messenger-app .m-result,#messenger-app .m-empty-icon{animation:none!important;transition:none!important}}
+
+/* Incoming message and notification feedback */
+#messenger-app .m-toast-incoming{border:1px solid color-mix(in srgb,var(--accent) 50%,var(--line));background:color-mix(in srgb,var(--panel) 86%,var(--accent));box-shadow:0 12px 38px color-mix(in srgb,var(--accent) 18%,transparent)}
+#messenger-app .m-toast-success{border:1px solid color-mix(in srgb,#45d69a 45%,var(--line))}
+#messenger-app .m-toast-error{border:1px solid color-mix(in srgb,#ff6678 50%,var(--line))}
+#messenger-app .m-toast-incoming:not(.hidden){animation:m-notice-pop .42s cubic-bezier(.18,.9,.2,1) both}
+#messenger-app .m-message-new{position:relative;animation:m-message-arrive .52s cubic-bezier(.18,.85,.2,1) both;box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 45%,transparent),0 0 24px color-mix(in srgb,var(--accent) 20%,transparent)}
+#messenger-app .m-message-new:after{content:"";position:absolute;inset:-3px;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);border-radius:inherit;pointer-events:none;animation:m-message-ring .9s ease-out both}
+@keyframes m-notice-pop{0%{opacity:0;translate:0 16px;scale:.94}65%{opacity:1;translate:0 -3px;scale:1.015}100%{opacity:1;translate:0 0;scale:1}}
+@keyframes m-message-arrive{0%{opacity:.3;translate:0 16px;scale:.94;filter:brightness(1.3)}65%{opacity:1;translate:0 -2px;scale:1.01}100%{opacity:1;translate:0 0;scale:1;filter:none}}
+@keyframes m-message-ring{0%{opacity:.85;scale:.97}100%{opacity:0;scale:1.07}}
+#messenger-app.m-no-animations .m-toast-incoming:not(.hidden),#messenger-app.m-no-animations .m-message-new,#messenger-app.m-no-animations .m-message-new:after{animation:none!important}
+@media(prefers-reduced-motion:reduce){#messenger-app .m-toast-incoming:not(.hidden),#messenger-app .m-message-new,#messenger-app .m-message-new:after{animation:none!important}}
