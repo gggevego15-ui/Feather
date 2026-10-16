@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10131b"><meta name="description" content="Feather — лёгкий мессенджер для твоих разговоров."><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml"><title>Feather — мессенджер</title>
+<meta name="theme-color" content="#10131b"><link rel="stylesheet" href="./messenger.css"><meta name="description" content="Feather — лёгкий мессенджер для твоих разговоров."><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml"><title>Feather — мессенджер</title>
 <style>
 :root{color-scheme:dark;--bg:#0b0e14;--panel:#121722;--line:#263044;--muted:#8994a8;--text:#f4f7ff;--accent:#ff8b72;--accent2:#9ee86f}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 20% 15%,#472b43 0,transparent 42%),radial-gradient(ellipse at 85% 80%,#29421f 0,transparent 38%),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);display:grid;place-items:center;padding:24px}
@@ -63,10 +63,12 @@ label{display:block;font-size:12px;color:#aeb8ca;margin:0 0 8px 2px}.field{width
   </section>
 </section>
 </main>
+<section id="messenger-app" class="messenger-app hidden" aria-label="Feather — личные чаты"></section>
 <script src="./asset-manifest.js"></script>
 <script type="module">
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { App } from "https://esm.sh/@capacitor/app@8.0.1";
+import { mountMessenger } from "./messenger.js";
 
 const SUPABASE_URL = "https://hdueaohjhlqhxlpehnqt.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_KRaLRbFNpALf2rn6hWXTUw_mWaZ0N0w";
@@ -147,6 +149,8 @@ async function showProfile(user) {
     $("profile-handle").textContent = "@" + (profile.username || "username");
     $("profile-avatar").textContent = (profile.name || profile.username || "F").trim().charAt(0).toUpperCase();
     status("Вход выполнен. Профиль загружен.", true);
+    document.querySelector(".shell").classList.add("hidden");
+    await mountMessenger(supabase, user, profile);
   } catch (error) {
     status("Вход выполнен, но профиль не загрузился: " + errorText(error));
   }
@@ -386,7 +390,7 @@ if (window.Capacitor?.isNativePlatform?.()) {
     if (event === "SIGNED_IN" && session?.user) {
       showProfile(session.user);
     }
-    if (event === "SIGNED_OUT") { currentUser = null; showAuth(); status("Ты вышел из аккаунта.", true); }
+    if (event === "SIGNED_OUT") { currentUser = null; document.querySelector(".shell").classList.remove("hidden"); $("messenger-app").classList.add("hidden"); showAuth(); status("Ты вышел из аккаунта.", true); }
   });
 }
 </script>
