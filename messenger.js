@@ -1,5 +1,5 @@
 const $ = id => document.getElementById(id);
-let current, activeChat=null, channel=null, typingChannel=null, typingHideTimer=null, typingLastSent=0, peerTyping=false, chatCache=[], theme="violet", searchTimer, voiceRecorder=null, voiceStream=null, voiceChunks=[], voiceStartedAt=0, voiceCancelled=false, voiceClock=null;
+let current, activeChat=null, channel=null, typingChannel=null, typingHideTimer=null, typingLastSent=0, peerTyping=false, chatCache=[], theme="glass", searchTimer, voiceRecorder=null, voiceStream=null, voiceChunks=[], voiceStartedAt=0, voiceCancelled=false, voiceClock=null;
 const preferences = { enterToSend: localStorage.getItem("feather-enter-to-send") !== "false", compact: localStorage.getItem("feather-compact") === "true", animations: localStorage.getItem("feather-animations") !== "false" };
 function savePreference(key,value){preferences[key]=value;const keys={enterToSend:"enter-to-send",compact:"compact",animations:"animations"};localStorage.setItem("feather-"+keys[key],String(value));const root=$("messenger-app");if(root){root.classList.toggle("m-compact",preferences.compact);root.classList.toggle("m-no-animations",!preferences.animations);}}
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -66,7 +66,7 @@ function installMicroInteractions(root){
  });
 }
 export async function mountMessenger(supabase,user,profile){
- if(!supabase||!user)return;current={supabase,user,profile:profile||{}};const root=$("messenger-app");root.classList.remove("hidden");theme=localStorage.getItem("feather-theme")||"violet";if(theme==="aurora")theme="violet";if(theme==="paper")theme="light";if(theme==="dark-old")theme="dark";if(!["violet","ocean","light","dark","glass"].includes(theme))theme="violet";root.dataset.theme=theme;root.dataset.chatOpen="false";root.classList.toggle("m-compact",preferences.compact);root.classList.toggle("m-no-animations",!preferences.animations);
+ if(!supabase||!user)return;current={supabase,user,profile:profile||{}};const root=$("messenger-app");root.classList.remove("hidden");theme=localStorage.getItem("feather-theme")||"glass";if(theme==="aurora")theme="violet";if(theme==="paper")theme="light";if(theme==="dark-old")theme="dark";if(!["violet","ocean","light","dark","glass"].includes(theme))theme="violet";root.dataset.theme=theme;root.dataset.chatOpen="false";root.classList.toggle("m-compact",preferences.compact);root.classList.toggle("m-no-animations",!preferences.animations);
  root.innerHTML=[
  '<div class="m-layout"><aside class="m-sidebar">',
  '<div class="m-brand"><div class="m-logo"><span class="m-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M38 7C23 8 12 17 11 29c-.5 5 2 9 6 11 0-8 5-15 13-21-5 7-8 14-9 22 9-5 16-16 17-34Z" fill="currentColor"/><path d="M8 41 27 21" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></span><span>Feather</span></div><button class="m-iconbtn" id="m-settings" aria-label="Настройки">⚙</button></div>',
