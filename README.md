@@ -1,26 +1,36 @@
 # Feather Messenger
 
-Telegram-inspired messenger frontend. Authentication UI supports Firebase Email/Password, Google sign-in, and phone number + SMS verification.
+Feather is a custom-styled messenger frontend. The authentication screen supports:
+- Email + password registration and login
+- Email confirmation (depending on Supabase Auth settings)
+- Google OAuth login
+- Password reset by email
+- Phone + SMS code login (requires an SMS provider configured in Supabase)
 
-## Included
-- Responsive dark/glass sign-in and registration screen.
-- Email/password account creation and login.
-- Google OAuth popup through Firebase Authentication.
-- Phone sign-in using SMS verification and reCAPTCHA.
-- Basic user profile creation in Firestore.
-- GitHub Pages deployment workflow.
+## Authentication setup (required for real accounts)
 
-## Firebase is required for real accounts
-The GitHub repository cannot create a Firebase project or enable authentication providers on your behalf. Until Firebase is configured, the interface explains that real authentication is not connected. Firebase web config is public by design; never put service-account private keys in frontend files.
+The UI is committed, but this repository does not yet have the owner's Supabase project credentials. Without them, authentication deliberately shows a setup message instead of pretending that sign-in worked.
 
-1. Create a project at https://console.firebase.google.com/ and add a Web app.
-2. Copy its config and replace the `PASTE_...` placeholders in `index.html`.
-3. In Firebase Authentication → Sign-in method, enable Email/Password and Google; enable Phone if SMS login is desired.
-4. In Authentication → Settings → Authorized domains, add your GitHub Pages domain.
-5. Create a Firestore database. Before production, configure strict security rules so users can only access their own profile and authorized chat documents. Do not use open rules.
+1. Open https://supabase.com/dashboard and create/select your project.
+2. In **Project Settings → API**, copy the **Project URL** and **Publishable key** (older projects may label the public client key as `anon`). These are browser client values; never put a service-role/secret key in frontend code.
+3. In `index.html`, replace:
+   - `PASTE_SUPABASE_PROJECT_URL` with your project URL, e.g. `https://your-project-id.supabase.co`
+   - `PASTE_SUPABASE_PUBLISHABLE_KEY` with your publishable/anon key.
+4. In **Authentication → URL Configuration**, set the Site URL to your published GitHub Pages URL and add that same URL to the Redirect URLs list.
+5. In **Authentication → Providers**, enable Email. To use Google, configure the Google provider credentials in Supabase and enable it. For phone login, enable Phone and configure a supported SMS provider.
+6. For email confirmation, configure the email templates and SMTP settings appropriate for your project. Test with a mailbox you control.
 
-## GitHub Pages
-In repository Settings → Pages, select **GitHub Actions** as the build/deployment source. The workflow publishes the repository root.
+## Deploy
 
-## Next
-Implement unique @usernames, user search, chat creation, realtime messages, unread counters, and delivery/read status in Firestore. These need database security rules and a defined chat schema before release.
+The repository contains a GitHub Actions workflow at `.github/workflows/pages.yml`. In GitHub repository **Settings → Pages**, select **GitHub Actions** as the deployment source. Check the **Actions** tab for the deployment result and open the published URL shown by the workflow.
+
+## Security notes
+
+- Never expose a Supabase service-role key or any private OAuth client secret in this frontend.
+- Do not disable Row Level Security (RLS) to make a feature appear to work.
+- The current milestone authenticates users. It does not yet implement chat storage, realtime messaging, or a protected user directory.
+- Supabase phone authentication may require billing/configuration for the SMS provider.
+
+## Next milestone
+
+Create the secure database schema and RLS policies for user profiles, unique `@usernames`, conversations, and realtime messages.
